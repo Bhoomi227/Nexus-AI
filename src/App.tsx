@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  ShoppingBag, 
-  Search, 
+  Utensils, 
+  Bed, 
+  Smartphone, 
+  MapPin, 
+  Star, 
+  ChevronRight, 
+  ArrowRight, 
   Menu, 
   X, 
-  ArrowRight, 
+  Play, 
   Instagram, 
   Facebook, 
   Twitter,
-  ChevronLeft,
-  ChevronRight,
-  Heart
+  Calendar,
+  Clock,
+  Award,
+  Coffee,
+  Wine,
+  Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -26,83 +34,66 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = [
+    { name: 'The Hotel', href: '#hotel' },
+    { name: 'Gastronomy', href: '#gastronomy' },
+    { name: 'The App', href: '#app' },
+    { name: 'Experiences', href: '#experiences' },
+  ];
+
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isScrolled ? 'bg-aura-50/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-8'}`}>
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex justify-between items-center">
-        {/* Left: Links */}
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'}`}>
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 bg-savor-900 rounded-lg flex items-center justify-center text-white">
+            <Utensils size={24} />
+          </div>
+          <span className="text-2xl font-serif font-bold tracking-tight">SAVOR</span>
+        </div>
+
+        {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-10">
-          {['Shop', 'Collections', 'Journal', 'About'].map((item) => (
-            <a key={item} href="#" className="text-[13px] uppercase tracking-[0.2em] font-medium nav-link-underline">
-              {item}
+          {navLinks.map((link) => (
+            <a key={link.name} href={link.href} className="text-sm font-semibold hover:text-savor-600 transition-colors uppercase tracking-widest">
+              {link.name}
             </a>
           ))}
+          <button className="btn-primary py-3 px-6 text-sm">Book a Stay</button>
         </div>
 
-        {/* Center: Logo */}
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <a href="/" className="text-3xl md:text-4xl font-serif tracking-[0.1em] font-light">AURA</a>
-        </div>
-
-        {/* Right: Icons */}
-        <div className="flex items-center gap-6">
-          <button className="hidden md:block hover:opacity-50 transition-opacity">
-            <Search size={20} strokeWidth={1.5} />
-          </button>
-          <button className="hover:opacity-50 transition-opacity relative">
-            <ShoppingBag size={20} strokeWidth={1.5} />
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-aura-900 text-white text-[10px] flex items-center justify-center rounded-full">0</span>
-          </button>
-          <button 
-            className="lg:hidden hover:opacity-50 transition-opacity"
-            onClick={() => setIsMobileMenuOpen(true)}
-          >
-            <Menu size={20} strokeWidth={1.5} />
-          </button>
-        </div>
+        {/* Mobile Toggle */}
+        <button className="lg:hidden" onClick={() => setIsMobileMenuOpen(true)}>
+          <Menu size={28} />
+        </button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-aura-900/40 backdrop-blur-sm z-[60] lg:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            className="fixed inset-0 bg-savor-900 text-white z-[60] p-10 flex flex-col"
           >
-            <motion.div 
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute top-0 right-0 bottom-0 w-[80%] max-w-sm bg-aura-50 p-12 flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                className="absolute top-8 right-8"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <X size={24} strokeWidth={1} />
-              </button>
-              
-              <div className="mt-20 space-y-8">
-                {['Shop All', 'New Arrivals', 'Collections', 'Journal', 'Our Story'].map((item) => (
-                  <a key={item} href="#" className="block text-3xl font-serif hover:italic transition-all">
-                    {item}
-                  </a>
-                ))}
-              </div>
-
-              <div className="mt-auto pt-12 border-t border-aura-200">
-                <p className="text-xs uppercase tracking-widest text-aura-300 mb-4">Follow Us</p>
-                <div className="flex gap-6">
-                  <Instagram size={20} strokeWidth={1.5} />
-                  <Twitter size={20} strokeWidth={1.5} />
-                  <Facebook size={20} strokeWidth={1.5} />
-                </div>
-              </div>
-            </motion.div>
+            <button className="self-end mb-12" onClick={() => setIsMobileMenuOpen(false)}>
+              <X size={32} />
+            </button>
+            <div className="space-y-8">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.name} 
+                  href={link.href} 
+                  className="block text-4xl font-serif hover:italic"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+            <button className="mt-auto w-full py-5 bg-white text-savor-900 rounded-full font-bold text-xl">
+              Book Now
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
@@ -112,276 +103,129 @@ const Navbar = () => {
 
 const Hero = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-aura-200">
-      <motion.div 
-        initial={{ scale: 1.1 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 2, ease: "easeOut" }}
-        className="absolute inset-0"
-      >
+    <section className="relative h-screen flex items-center overflow-hidden">
+      <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2070" 
-          alt="Fashion Editorial" 
+          src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2070" 
+          alt="Luxury Dining" 
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-black/10" />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-r from-savor-900/80 to-transparent" />
+      </div>
 
-      <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-white text-xs uppercase tracking-[0.4em] mb-6 font-medium"
-        >
-          Spring / Summer 2026
-        </motion.p>
-        <motion.h1 
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 1 }}
-          className="text-white text-6xl md:text-8xl lg:text-9xl font-serif font-light mb-12"
+          transition={{ duration: 1 }}
+          className="max-w-2xl text-white"
         >
-          The Art of <br /> <span className="italic">Simplicity</span>
-        </motion.h1>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
-        >
-          <button className="group relative px-12 py-4 bg-white text-aura-900 text-xs uppercase tracking-widest font-bold overflow-hidden transition-all hover:bg-aura-900 hover:text-white">
-            <span className="relative z-10">Explore Collection</span>
-          </button>
+          <span className="inline-block px-4 py-1 rounded-full bg-savor-300/20 backdrop-blur-sm border border-savor-300/30 text-savor-300 text-xs font-bold uppercase tracking-[0.3em] mb-6">
+            The Ultimate Gastro-Hotel
+          </span>
+          <h1 className="text-6xl md:text-8xl font-serif mb-8 leading-tight">
+            Where Luxury <br /> <span className="italic font-light">Meets Flavor</span>
+          </h1>
+          <p className="text-xl text-savor-100/80 mb-10 leading-relaxed max-w-lg">
+            Experience a new era of hospitality. A hotel designed around the plate, where every stay is a culinary journey.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button className="btn-primary bg-white text-savor-900 hover:bg-savor-100">
+              Explore Experiences
+            </button>
+            <button className="flex items-center gap-3 px-8 py-4 text-white font-bold hover:gap-5 transition-all">
+              <div className="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center">
+                <Play size={20} fill="white" />
+              </div>
+              Watch the Film
+            </button>
+          </div>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Floating Info Card */}
       <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="absolute bottom-12 right-12 hidden xl:block"
       >
-        <div className="w-[1px] h-16 bg-white/30 relative overflow-hidden">
-          <motion.div 
-            animate={{ y: [0, 64] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-0 left-0 w-full h-1/2 bg-white"
-          />
+        <div className="glass-card p-8 rounded-2xl max-w-xs">
+          <div className="flex items-center gap-2 text-savor-600 mb-4">
+            <Award size={20} />
+            <span className="text-xs font-bold uppercase tracking-widest">Michelin Rated 2026</span>
+          </div>
+          <h3 className="text-xl font-serif mb-2">The Chef's Table</h3>
+          <p className="text-sm text-savor-900/60 mb-4">A 12-course sensory journey curated by Chef Julian Vane.</p>
+          <button className="text-savor-900 font-bold text-sm flex items-center gap-2">
+            Reserve a Table <ArrowRight size={16} />
+          </button>
         </div>
       </motion.div>
     </section>
   );
 };
 
-const NewArrivals = () => {
-  const products = [
+const HotelSection = () => {
+  const rooms = [
     {
-      id: 1,
-      name: "Silk Slip Dress",
-      price: "$240",
-      image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000",
-      category: "Dresses"
+      title: "The Vineyard Suite",
+      desc: "Wake up overlooking our private organic vineyards.",
+      image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=1000"
     },
     {
-      id: 2,
-      name: "Linen Blazer",
-      price: "$310",
-      image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=1000",
-      category: "Outerwear"
-    },
-    {
-      id: 3,
-      name: "Cashmere Sweater",
-      price: "$195",
-      image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=1000",
-      category: "Knitwear"
-    },
-    {
-      id: 4,
-      name: "Tailored Trousers",
-      price: "$180",
-      image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=1000",
-      category: "Bottoms"
+      title: "Culinary Loft",
+      desc: "Featuring a professional-grade kitchen and private sommelier.",
+      image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=1000"
     }
   ];
 
   return (
-    <section className="py-32 px-6 md:px-12">
-      <div className="max-w-[1800px] mx-auto">
-        <div className="flex justify-between items-end mb-16">
+    <section id="hotel" className="py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div>
-            <p className="text-xs uppercase tracking-widest text-aura-300 mb-4">Curated Selection</p>
-            <h2 className="text-4xl md:text-5xl font-serif">New Arrivals</h2>
-          </div>
-          <a href="#" className="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest font-bold border-b border-aura-900 pb-1 hover:opacity-50 transition-opacity">
-            View All <ArrowRight size={14} />
-          </a>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-          {products.map((product) => (
-            <motion.div 
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="group cursor-pointer"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden bg-aura-100 mb-6">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <button className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white">
-                  <Heart size={18} strokeWidth={1.5} />
-                </button>
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <button className="w-full py-3 bg-aura-900 text-white text-[10px] uppercase tracking-widest font-bold">
-                    Quick Add
-                  </button>
+            <span className="text-savor-600 font-bold text-xs uppercase tracking-[0.4em] mb-4 block">The Stay</span>
+            <h2 className="text-5xl md:text-6xl font-serif mb-8 leading-tight">Rest in the Heart of <br /> <span className="italic">Gastronomy</span></h2>
+            <p className="text-lg text-savor-900/70 mb-12 leading-relaxed">
+              Our rooms are more than just a place to sleep. They are sanctuaries of taste, featuring in-room fermentation labs, artisanal mini-bars, and views of our herb gardens.
+            </p>
+            <div className="grid grid-cols-2 gap-8 mb-12">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-savor-100 rounded-xl flex items-center justify-center text-savor-900">
+                  <Bed size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold mb-1">42 Suites</h4>
+                  <p className="text-xs text-savor-900/50">Bespoke design</p>
                 </div>
               </div>
-              <p className="text-[10px] uppercase tracking-widest text-aura-300 mb-2">{product.category}</p>
-              <div className="flex justify-between items-start">
-                <h3 className="text-lg font-serif">{product.name}</h3>
-                <span className="text-sm font-medium">{product.price}</span>
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-savor-100 rounded-xl flex items-center justify-center text-savor-900">
+                  <Coffee size={24} />
+                </div>
+                <div>
+                  <h4 className="font-bold mb-1">Private Bar</h4>
+                  <p className="text-xs text-savor-900/50">Artisanal spirits</p>
+                </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const EditorialSection = () => {
-  return (
-    <section className="bg-aura-100 py-32 px-6 md:px-12 overflow-hidden">
-      <div className="max-w-[1800px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
-        <div className="relative">
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="aspect-[4/5] relative z-10"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&q=80&w=1000" 
-              alt="Editorial" 
-              className="w-full h-full object-cover shadow-2xl"
-              referrerPolicy="no-referrer"
-            />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="absolute -bottom-12 -right-12 w-2/3 aspect-square hidden md:block"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=1000" 
-              alt="Editorial Detail" 
-              className="w-full h-full object-cover shadow-xl"
-              referrerPolicy="no-referrer"
-            />
-          </motion.div>
-        </div>
-
-        <div className="max-w-xl">
-          <p className="text-xs uppercase tracking-[0.3em] text-aura-300 mb-8">Our Philosophy</p>
-          <h2 className="text-5xl md:text-6xl font-serif mb-10 leading-tight">
-            Conscious Craftsmanship <br /> & <span className="italic">Timeless Design</span>
-          </h2>
-          <p className="text-lg text-aura-900/70 mb-12 leading-relaxed">
-            We believe in clothing that lasts beyond seasons. Our pieces are ethically sourced and meticulously crafted from the finest natural fibers, designed to be the foundation of a modern, conscious wardrobe.
-          </p>
-          <div className="grid grid-cols-2 gap-12">
-            <div>
-              <h4 className="text-2xl font-serif mb-2 italic">100%</h4>
-              <p className="text-xs uppercase tracking-widest text-aura-300">Organic Materials</p>
             </div>
-            <div>
-              <h4 className="text-2xl font-serif mb-2 italic">Zero</h4>
-              <p className="text-xs uppercase tracking-widest text-aura-300">Waste Policy</p>
-            </div>
+            <button className="btn-primary">View All Suites</button>
           </div>
-          <button className="mt-16 flex items-center gap-4 text-xs uppercase tracking-[0.2em] font-bold border-b border-aura-900 pb-2 hover:gap-6 transition-all">
-            Read Our Story <ArrowRight size={16} />
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
 
-const Collections = () => {
-  const collections = [
-    {
-      title: "The Linen Series",
-      subtitle: "Breathable Essentials",
-      image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=1000",
-      size: "large"
-    },
-    {
-      title: "Silk & Satin",
-      subtitle: "Evening Grace",
-      image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&q=80&w=1000",
-      size: "small"
-    },
-    {
-      title: "Organic Cotton",
-      subtitle: "Daily Comfort",
-      image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=1000",
-      size: "small"
-    }
-  ];
-
-  return (
-    <section className="py-32 px-6 md:px-12 bg-white">
-      <div className="max-w-[1800px] mx-auto">
-        <div className="text-center mb-20">
-          <p className="text-xs uppercase tracking-[0.4em] text-aura-300 mb-4">Explore</p>
-          <h2 className="text-5xl font-serif italic">Featured Collections</h2>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-[800px]">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="md:col-span-2 relative group overflow-hidden cursor-pointer"
-          >
-            <img src={collections[0].image} alt={collections[0].title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-            <div className="absolute bottom-12 left-12 text-white">
-              <p className="text-xs uppercase tracking-widest mb-2">{collections[0].subtitle}</p>
-              <h3 className="text-4xl font-serif mb-6">{collections[0].title}</h3>
-              <button className="text-xs uppercase tracking-widest font-bold border-b border-white pb-1">Shop Collection</button>
-            </div>
-          </motion.div>
-          
-          <div className="flex flex-col gap-8">
-            {collections.slice(1).map((col, i) => (
+          <div className="grid gap-8">
+            {rooms.map((room, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.2 }}
-                className="flex-1 relative group overflow-hidden cursor-pointer"
+                whileHover={{ y: -10 }}
+                className="relative group overflow-hidden rounded-3xl aspect-[16/9]"
               >
-                <img src={col.image} alt={col.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+                <img src={room.image} alt={room.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-gradient-to-t from-savor-900/80 via-transparent to-transparent" />
                 <div className="absolute bottom-8 left-8 text-white">
-                  <p className="text-[10px] uppercase tracking-widest mb-1">{col.subtitle}</p>
-                  <h3 className="text-2xl font-serif mb-4">{col.title}</h3>
-                  <button className="text-[10px] uppercase tracking-widest font-bold border-b border-white pb-1">View</button>
+                  <h3 className="text-2xl font-serif mb-2">{room.title}</h3>
+                  <p className="text-sm text-white/70">{room.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -392,200 +236,131 @@ const Collections = () => {
   );
 };
 
-const CategoryShowcase = () => {
-  const categories = [
-    { name: "Womenswear", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1000" },
-    { name: "Menswear", image: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=1000" },
-    { name: "Accessories", image: "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&q=80&w=1000" }
+const Gastronomy = () => {
+  const dishes = [
+    { name: "Forest Foraged Tartare", price: "$32", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=1000" },
+    { name: "Smoked Arctic Char", price: "$45", image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=1000" },
+    { name: "Truffle Infused Risotto", price: "$38", image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&q=80&w=1000" }
   ];
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-aura-50">
-      <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        {categories.map((cat, i) => (
-          <motion.div 
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="relative aspect-[4/5] overflow-hidden group cursor-pointer"
-          >
-            <img src={cat.image} alt={cat.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
-            <div className="absolute inset-0 bg-aura-900/10 group-hover:bg-transparent transition-colors" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h3 className="text-white text-3xl font-serif tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">{cat.name}</h3>
-            </div>
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-xs uppercase tracking-[0.3em] font-medium group-hover:hidden">
-              {cat.name}
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-};
-
-const Materials = () => {
-  return (
-    <section className="py-32 px-6 md:px-12 bg-white overflow-hidden">
-      <div className="max-w-[1800px] mx-auto flex flex-col lg:flex-row items-center gap-20">
-        <div className="lg:w-1/2">
-          <p className="text-xs uppercase tracking-[0.4em] text-aura-300 mb-8">The Foundation</p>
-          <h2 className="text-5xl md:text-6xl font-serif mb-12 leading-tight">Superior Materials, <br /><span className="italic">Ethically Sourced</span></h2>
-          
-          <div className="space-y-12">
-            {[
-              { title: "Pure Mulberry Silk", desc: "Known for its natural sheen and incredible strength, our silk is sourced from sustainable farms." },
-              { title: "Belgian Linen", desc: "A timeless fabric that grows softer with every wash, perfect for effortless summer elegance." },
-              { title: "Recycled Cashmere", desc: "Luxurious warmth with a reduced environmental footprint, repurposed from premium fibers." }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.2 }}
-                className="border-l border-aura-200 pl-8"
-              >
-                <h4 className="text-xl font-serif mb-3">{item.title}</h4>
-                <p className="text-aura-900/60 text-sm leading-relaxed max-w-md">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-        
-        <div className="lg:w-1/2 relative">
-          <div className="grid grid-cols-2 gap-4">
-            <motion.img 
-              initial={{ opacity: 0, scale: 1.1 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&q=80&w=1000" 
-              className="w-full aspect-[3/4] object-cover rounded-sm"
-              referrerPolicy="no-referrer"
-            />
-            <motion.img 
-              initial={{ opacity: 0, scale: 1.1 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1000" 
-              className="w-full aspect-[3/4] object-cover rounded-sm mt-12"
-              referrerPolicy="no-referrer"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Journal = () => {
-  const posts = [
-    {
-      title: "The Art of Minimalist Living",
-      date: "March 12, 2026",
-      image: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=1000",
-      category: "Lifestyle"
-    },
-    {
-      title: "Sustainable Fibers: A Deep Dive",
-      date: "February 28, 2026",
-      image: "https://images.unsplash.com/photo-1558444479-c84829091c22?auto=format&fit=crop&q=80&w=1000",
-      category: "Sustainability"
-    },
-    {
-      title: "Spring Palette: Earthy Tones",
-      date: "February 15, 2026",
-      image: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&q=80&w=1000",
-      category: "Design"
-    }
-  ];
-
-  return (
-    <section className="py-32 px-6 md:px-12 bg-aura-50">
-      <div className="max-w-[1800px] mx-auto">
-        <div className="flex justify-between items-end mb-16">
-          <div>
-            <p className="text-xs uppercase tracking-widest text-aura-300 mb-4">The Journal</p>
-            <h2 className="text-4xl md:text-5xl font-serif italic">Stories & Insights</h2>
-          </div>
-          <button className="text-xs uppercase tracking-widest font-bold border-b border-aura-900 pb-1">Read All</button>
+    <section id="gastronomy" className="py-32 bg-savor-900 text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-20">
+          <span className="text-savor-300 font-bold text-xs uppercase tracking-[0.4em] mb-4 block">The Cuisine</span>
+          <h2 className="text-5xl md:text-6xl font-serif mb-6">A Symphony of <span className="italic">Seasonal Flavors</span></h2>
+          <p className="text-savor-100/60 max-w-2xl mx-auto text-lg">
+            Our kitchen is a laboratory of taste. We work exclusively with local farmers to bring the freshest ingredients to your plate.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {posts.map((post, i) => (
+        <div className="flex gap-8 overflow-x-auto pb-12 no-scrollbar">
+          {dishes.map((dish, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group cursor-pointer"
+              className="flex-shrink-0 w-80 group cursor-pointer"
             >
-              <div className="aspect-[16/10] overflow-hidden mb-6">
-                <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
+              <div className="aspect-square rounded-full overflow-hidden mb-8 border-4 border-savor-300/20 group-hover:border-savor-300 transition-all duration-500">
+                <img src={dish.image} alt={dish.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" referrerPolicy="no-referrer" />
               </div>
-              <p className="text-[10px] uppercase tracking-widest text-aura-300 mb-3">{post.category} — {post.date}</p>
-              <h3 className="text-2xl font-serif group-hover:italic transition-all">{post.title}</h3>
+              <div className="text-center">
+                <h3 className="text-2xl font-serif mb-2">{dish.name}</h3>
+                <p className="text-savor-300 font-bold">{dish.price}</p>
+              </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-20 grid md:grid-cols-3 gap-12">
+          <div className="text-center">
+            <Wine className="mx-auto mb-6 text-savor-300" size={40} />
+            <h4 className="text-xl font-serif mb-3">Private Cellar</h4>
+            <p className="text-sm text-savor-100/50">Over 5,000 labels of rare and vintage wines.</p>
+          </div>
+          <div className="text-center">
+            <Clock className="mx-auto mb-6 text-savor-300" size={40} />
+            <h4 className="text-xl font-serif mb-3">24/7 Gastronomy</h4>
+            <p className="text-sm text-savor-100/50">Gourmet dining available at any hour.</p>
+          </div>
+          <div className="text-center">
+            <MapPin className="mx-auto mb-6 text-savor-300" size={40} />
+            <h4 className="text-xl font-serif mb-3">Garden to Table</h4>
+            <p className="text-sm text-savor-100/50">Ingredients harvested daily from our estate.</p>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-const SocialFeed = () => {
-  const images = [
-    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1000",
-    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=1000",
-    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1000",
-    "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&q=80&w=1000",
-    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000",
-    "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=1000"
-  ];
-
+const AppSection = () => {
   return (
-    <section className="py-24 bg-white overflow-hidden">
-      <div className="text-center mb-12">
-        <p className="text-xs uppercase tracking-[0.4em] text-aura-300 mb-4">Follow Us</p>
-        <h3 className="text-2xl font-serif italic">@aura_minimalist</h3>
-      </div>
-      
-      <div className="flex gap-4 px-4 overflow-x-auto no-scrollbar">
-        {images.map((img, i) => (
-          <div key={i} className="flex-shrink-0 w-64 aspect-square relative group cursor-pointer">
-            <img src={img} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <Instagram className="text-white" size={24} />
+    <section id="app" className="py-32 bg-savor-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="relative">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative z-10 w-full max-w-sm mx-auto"
+            >
+              <div className="bg-savor-900 rounded-[3rem] p-4 shadow-2xl border-8 border-savor-900">
+                <img 
+                  src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000" 
+                  alt="Savor App" 
+                  className="rounded-[2rem] w-full h-auto"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </motion.div>
+            {/* Decorative circles */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-savor-300/20 rounded-full -z-0 blur-3xl" />
+          </div>
+
+          <div>
+            <span className="text-savor-600 font-bold text-xs uppercase tracking-[0.4em] mb-4 block">The Technology</span>
+            <h2 className="text-5xl md:text-6xl font-serif mb-8 leading-tight">Your Personal <br /> <span className="italic text-savor-600">Gastro-Concierge</span></h2>
+            <p className="text-lg text-savor-900/70 mb-10 leading-relaxed">
+              Order room service, book tasting sessions, and track the origin of your ingredients—all from the palm of your hand.
+            </p>
+            
+            <div className="space-y-6 mb-12">
+              {[
+                { icon: <Smartphone size={20} />, title: "Instant Room Service", desc: "Order from our full menu with one tap." },
+                { icon: <Calendar size={20} />, title: "Table Reservations", desc: "Real-time availability for all our dining venues." },
+                { icon: <Clock size={20} />, title: "Live Prep Tracking", desc: "Watch your meal being prepared via live kitchen feed." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-4">
+                  <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-savor-900 shadow-sm">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm">{item.title}</h4>
+                    <p className="text-xs text-savor-900/50">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <button className="flex items-center gap-3 bg-savor-900 text-white px-6 py-3 rounded-xl hover:bg-savor-600 transition-all">
+                <Download size={20} />
+                <div className="text-left">
+                  <p className="text-[10px] uppercase font-bold opacity-60">Download on the</p>
+                  <p className="text-sm font-bold">App Store</p>
+                </div>
+              </button>
+              <button className="flex items-center gap-3 bg-savor-900 text-white px-6 py-3 rounded-xl hover:bg-savor-600 transition-all">
+                <Play size={20} fill="white" />
+                <div className="text-left">
+                  <p className="text-[10px] uppercase font-bold opacity-60">Get it on</p>
+                  <p className="text-sm font-bold">Google Play</p>
+                </div>
+              </button>
             </div>
           </div>
-        ))}
-      </div>
-    </section>
-  );
-};
-
-const Newsletter = () => {
-  return (
-    <section className="py-32 px-6 text-center bg-white">
-      <div className="max-w-2xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-serif mb-6">Join the AURA Journal</h2>
-        <p className="text-aura-900/60 mb-12 leading-relaxed">
-          Subscribe to receive early access to new collections, editorial stories, and exclusive invitations.
-        </p>
-        <form className="flex flex-col sm:flex-row gap-4">
-          <input 
-            type="email" 
-            placeholder="Email Address" 
-            className="flex-grow bg-aura-100 px-8 py-4 text-sm focus:outline-none focus:ring-1 focus:ring-aura-900 transition-all"
-          />
-          <button className="px-12 py-4 bg-aura-900 text-white text-xs uppercase tracking-widest font-bold hover:bg-black transition-colors">
-            Subscribe
-          </button>
-        </form>
+        </div>
       </div>
     </section>
   );
@@ -593,58 +368,69 @@ const Newsletter = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-aura-900 text-aura-100 pt-24 pb-12 px-6 md:px-12">
-      <div className="max-w-[1800px] mx-auto">
+    <footer className="bg-savor-900 text-savor-100 pt-24 pb-12 px-6">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-16 mb-24">
           <div className="col-span-2">
-            <a href="/" className="text-4xl font-serif tracking-widest mb-8 block">AURA</a>
-            <p className="text-aura-100/50 max-w-xs leading-relaxed text-sm">
-              Elevating the everyday through minimalist design and conscious craftsmanship.
+            <div className="flex items-center gap-2 mb-8">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-savor-900">
+                <Utensils size={18} />
+              </div>
+              <span className="text-2xl font-serif font-bold tracking-tight text-white">SAVOR</span>
+            </div>
+            <p className="text-savor-100/50 max-w-xs leading-relaxed text-sm mb-8">
+              A sanctuary for the senses. Luxury hospitality redefined through the lens of world-class gastronomy.
             </p>
+            <div className="flex gap-4">
+              {[Instagram, Facebook, Twitter].map((Icon, i) => (
+                <a key={i} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-savor-900 transition-all">
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
           </div>
           
           <div>
-            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Shop</h4>
-            <ul className="space-y-4 text-sm text-aura-100/60">
-              {['New Arrivals', 'Best Sellers', 'Collections', 'Accessories'].map(item => (
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8 text-white">Explore</h4>
+            <ul className="space-y-4 text-sm text-savor-100/50">
+              {['The Hotel', 'Dining', 'Wellness', 'Events'].map(item => (
                 <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Support</h4>
-            <ul className="space-y-4 text-sm text-aura-100/60">
-              {['Shipping', 'Returns', 'Size Guide', 'Contact Us'].map(item => (
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8 text-white">The App</h4>
+            <ul className="space-y-4 text-sm text-savor-100/50">
+              {['Features', 'Download', 'Support', 'Privacy'].map(item => (
                 <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Company</h4>
-            <ul className="space-y-4 text-sm text-aura-100/60">
-              {['Our Story', 'Journal', 'Sustainability', 'Stockists'].map(item => (
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8 text-white">Contact</h4>
+            <ul className="space-y-4 text-sm text-savor-100/50">
+              {['Reservations', 'General Inquiries', 'Press', 'Careers'].map(item => (
                 <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Follow</h4>
-            <ul className="space-y-4 text-sm text-aura-100/60">
-              {['Instagram', 'Pinterest', 'TikTok', 'Facebook'].map(item => (
-                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
-              ))}
-            </ul>
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8 text-white">Location</h4>
+            <p className="text-sm text-savor-100/50 leading-relaxed">
+              124 Gastronomy Way,<br />
+              Napa Valley, CA 94558
+            </p>
           </div>
         </div>
 
-        <div className="pt-12 border-t border-aura-100/10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[10px] uppercase tracking-widest text-aura-100/40">
-            © 2026 AURA Minimalist Fashion. All Rights Reserved.
+        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[10px] uppercase tracking-widest text-savor-100/30">
+            © 2026 SAVOR Gastro-Hotel. All Rights Reserved.
           </p>
-          <div className="flex gap-8 text-[10px] uppercase tracking-widest text-aura-100/40">
+          <div className="flex gap-8 text-[10px] uppercase tracking-widest text-savor-100/30">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
@@ -658,18 +444,13 @@ const Footer = () => {
 
 export default function App() {
   return (
-    <div className="min-h-screen selection:bg-aura-900 selection:text-white">
+    <div className="min-h-screen selection:bg-savor-300 selection:text-savor-900">
       <Navbar />
       <main>
         <Hero />
-        <NewArrivals />
-        <Collections />
-        <CategoryShowcase />
-        <EditorialSection />
-        <Materials />
-        <Journal />
-        <SocialFeed />
-        <Newsletter />
+        <HotelSection />
+        <Gastronomy />
+        <AppSection />
       </main>
       <Footer />
     </div>

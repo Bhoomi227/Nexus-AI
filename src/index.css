@@ -1,40 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
-  --color-aura-50: #fdfcfb;
-  --color-aura-100: #f5f2ed;
-  --color-aura-200: #e8e2d6;
-  --color-aura-300: #d1c7b3;
-  --color-aura-900: #1a1a1a;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --color-savor-50: #fdfaf6;
+  --color-savor-100: #f7f0e6;
+  --color-savor-200: #eedec8;
+  --color-savor-300: #e0c4a1;
+  --color-savor-600: #8b5e3c;
+  --color-savor-900: #2c1810;
+  --color-accent-sage: #6b705c;
+  --color-accent-terracotta: #b07d62;
 }
 
 @layer base {
   body {
-    @apply font-sans bg-aura-50 text-aura-900 antialiased;
+    @apply font-sans bg-savor-50 text-savor-900 antialiased;
   }
   h1, h2, h3, h4 {
     @apply font-serif tracking-tight;
   }
 }
 
-.editorial-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 1.5rem;
+.glass-card {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
 }
 
-.reveal-image {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+.btn-primary {
+  @apply bg-savor-900 text-white px-8 py-4 rounded-full font-bold transition-all hover:bg-savor-600 active:scale-95 shadow-lg shadow-savor-900/20;
 }
 
-.reveal-image.active {
-  clip-path: inset(0 0 0 0);
+.btn-secondary {
+  @apply bg-white text-savor-900 px-8 py-4 rounded-full font-bold border border-savor-200 transition-all hover:bg-savor-100 active:scale-95;
 }
 
-.nav-link-underline {
-  @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-aura-900 after:transition-all hover:after:w-full;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

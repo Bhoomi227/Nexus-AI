@@ -1,5 +1,5 @@
 {
-  "name": "AURA - Minimalist Fashion",
-  "description": "A premium, minimalist clothing brand focusing on sustainable materials and timeless design. Featuring an editorial layout with high-quality fashion imagery.",
-  "requestFramePermissions": []
+  "name": "SAVOR - Luxury Gastro-Hotel",
+  "description": "A premium culinary-focused hotel and dining platform. Experience world-class gastronomy and luxury stays with our integrated booking and ordering app.",
+  "requestFramePermissions": ["geolocation"]
 }
