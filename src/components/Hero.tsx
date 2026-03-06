@@ -63,7 +63,7 @@ export const Hero: React.FC = () => {
           className="h-full w-full"
         >
           <img
-            src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=2000"
+            src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=2000"
             alt="Modern Kitchen"
             className="w-full h-full object-cover grayscale-[20%] contrast-[1.1]"
             referrerPolicy="no-referrer"

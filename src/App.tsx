@@ -10,6 +10,11 @@ import { motion } from 'motion/react';
 import { Filter, SlidersHorizontal, ShoppingCart } from 'lucide-react';
 import { cn } from './lib/utils';
 
+import { ProductSpotlight } from './components/ProductSpotlight';
+import { Testimonials } from './components/Testimonials';
+import { LifestyleGallery } from './components/LifestyleGallery';
+import { FAQ } from './components/FAQ';
+
 const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -107,6 +112,8 @@ const App: React.FC = () => {
           </div>
         </section>
 
+        <ProductSpotlight />
+
         {/* Why Choose Us Section - Modern Bento Style */}
         <section className="py-32 px-6 bg-brand-950 text-white">
           <div className="max-w-[1600px] mx-auto">
@@ -146,6 +153,10 @@ const App: React.FC = () => {
             </div>
           </div>
         </section>
+
+        <Testimonials />
+        <LifestyleGallery />
+        <FAQ />
 
         {/* Newsletter Section */}
         <section className="bg-brand-100 py-24 px-6">
