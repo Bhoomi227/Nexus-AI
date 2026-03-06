@@ -1,35 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Space Grotesk", sans-serif;
-  --font-sans: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
-  
-  --color-velocity: #FF4F00; /* International Orange */
-  --color-slate-950: #020617;
-  --color-slate-900: #0f172a;
-  --color-slate-800: #1e293b;
-  --color-slate-700: #334155;
-  --color-slate-100: #f1f5f9;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --color-kitchen-bg: #D9D4C7;
+  --color-kitchen-card: #E5E1D8;
+  --color-kitchen-dark: #1A1A1A;
+  --color-kitchen-muted: #6B6B6B;
+  --color-kitchen-accent: #C7C2B5;
 }
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 font-sans antialiased;
+    @apply font-sans bg-kitchen-bg text-kitchen-dark antialiased selection:bg-kitchen-dark selection:text-white;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight;
+  h1, h2, h3, h4 {
+    @apply font-display font-extrabold tracking-tight;
   }
 }
 
-.brutal-border {
-  @apply border border-slate-800;
+.btn-kitchen-dark {
+  @apply bg-kitchen-dark text-white px-8 py-3 rounded-sm font-bold text-xs uppercase tracking-widest transition-all hover:opacity-90 active:scale-95;
 }
 
-.velocity-gradient {
-  background: linear-gradient(135deg, #FF4F00 0%, #FF8C00 100%);
+.btn-kitchen-outline {
+  @apply border border-kitchen-dark text-kitchen-dark px-8 py-3 rounded-sm font-bold text-xs uppercase tracking-widest transition-all hover:bg-kitchen-dark hover:text-white active:scale-95;
+}
+
+.card-kitchen {
+  @apply bg-kitchen-card border border-kitchen-dark/5 p-6 transition-all hover:shadow-xl;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -38,4 +38,20 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.diagonal-text {
+  @apply absolute text-[10rem] font-black text-kitchen-dark/[0.03] rotate-[-15deg] pointer-events-none select-none;
+}
+
+.pill-tab {
+  @apply px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all;
+}
+
+.pill-tab-active {
+  @apply bg-kitchen-dark text-white;
+}
+
+.pill-tab-inactive {
+  @apply bg-transparent text-kitchen-dark/40 hover:text-kitchen-dark;
 }
