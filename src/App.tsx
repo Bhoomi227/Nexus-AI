@@ -1,19 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
-  ArrowRight, 
-  ArrowUpRight, 
+  ShoppingBag, 
+  Search, 
   Menu, 
   X, 
+  ArrowRight, 
+  ArrowUpRight, 
+  Play, 
+  Pause, 
+  Volume2, 
+  Bluetooth, 
+  Battery, 
+  Droplets, 
   Instagram, 
   Twitter, 
-  Linkedin, 
-  MapPin, 
-  Phone, 
-  Mail,
+  Facebook, 
+  Youtube,
   ChevronRight,
-  Plus
+  Plus,
+  Zap,
+  ShieldCheck,
+  Headphones
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 
 // --- Components ---
 
@@ -28,25 +37,38 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Projects', href: '#projects' },
-    { name: 'Services', href: '#services' },
-    { name: 'Philosophy', href: '#philosophy' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Speakers', href: '#speakers' },
+    { name: 'Technology', href: '#tech' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Support', href: '#support' },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-axis-white/90 backdrop-blur-md py-4 border-b border-axis-black/5' : 'bg-transparent py-8'}`}>
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex justify-between items-center">
-        <a href="/" className="text-3xl font-display font-bold tracking-tighter">AXIS</a>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass-nav py-4' : 'bg-transparent py-8'}`}>
+      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-sonic-accent rounded-full flex items-center justify-center">
+            <Volume2 size={18} className="text-sonic-black" />
+          </div>
+          <a href="/" className="text-2xl font-display font-bold tracking-tighter">SONIC</a>
+        </div>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-12">
+        <div className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="text-[10px] uppercase tracking-[0.3em] font-bold hover:text-axis-accent transition-colors">
+            <a key={link.name} href={link.href} className="text-[10px] uppercase tracking-[0.2em] font-black hover:text-sonic-accent transition-colors">
               {link.name}
             </a>
           ))}
-          <button className="btn-axis py-3 px-8 text-[10px]">Start Project</button>
+          <div className="flex items-center gap-6 ml-6 border-l border-white/10 pl-10">
+            <button className="hover:text-sonic-accent transition-colors">
+              <Search size={20} />
+            </button>
+            <button className="hover:text-sonic-accent transition-colors relative">
+              <ShoppingBag size={20} />
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-sonic-accent text-sonic-black text-[10px] font-black flex items-center justify-center rounded-full">2</span>
+            </button>
+          </div>
         </div>
 
         {/* Mobile Toggle */}
@@ -59,23 +81,23 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 bg-axis-black text-axis-white z-[60] p-12 flex flex-col"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            className="fixed inset-0 bg-sonic-black text-sonic-white z-[60] p-12 flex flex-col"
           >
             <div className="flex justify-between items-center mb-20">
-              <span className="text-3xl font-display font-bold tracking-tighter">AXIS</span>
+              <span className="text-2xl font-display font-bold tracking-tighter">SONIC</span>
               <button onClick={() => setIsMobileMenuOpen(false)}>
                 <X size={32} />
               </button>
             </div>
-            <div className="space-y-10">
+            <div className="space-y-8">
               {navLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
-                  className="block text-5xl font-display font-bold hover:text-axis-accent transition-colors"
+                  className="block text-5xl font-display font-bold hover:text-sonic-accent transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -85,7 +107,7 @@ const Navbar = () => {
             <div className="mt-auto flex gap-8">
               <Instagram size={24} />
               <Twitter size={24} />
-              <Linkedin size={24} />
+              <Youtube size={24} />
             </div>
           </motion.div>
         )}
@@ -95,131 +117,150 @@ const Navbar = () => {
 };
 
 const Hero = () => {
-  return (
-    <section className="relative h-screen flex items-center overflow-hidden bg-axis-gray-100">
-      {/* Grid Lines */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="grid-line-v left-1/4" />
-        <div className="grid-line-v left-1/2" />
-        <div className="grid-line-v left-3/4" />
-        <div className="grid-line-h top-1/3" />
-        <div className="grid-line-h top-2/3" />
-      </div>
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const scale = useTransform(scrollY, [0, 500], [1, 0.8]);
 
-      <div className="relative z-10 max-w-[1800px] mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 gap-20 items-center">
+  return (
+    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sonic-accent/10 rounded-full blur-[120px] -z-0" />
+      
+      <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-20 items-center relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
-          <p className="text-xs uppercase tracking-[0.5em] text-axis-accent font-bold mb-8">Architecture & Design Studio</p>
-          <h1 className="text-7xl md:text-9xl font-display font-bold mb-12 leading-[0.85] tracking-tighter">
-            Shaping <br /> <span className="text-axis-accent">Future</span> <br /> Spaces
+          <div className="flex items-center gap-3 mb-8">
+            <div className="glow-dot" />
+            <span className="text-xs font-black uppercase tracking-[0.4em] text-sonic-accent">New Release: Titan X</span>
+          </div>
+          <h1 className="text-7xl md:text-9xl font-display font-bold mb-10 leading-[0.85] tracking-tighter">
+            UNLEASH <br /> <span className="text-sonic-accent text-glow">PURE</span> <br /> SOUND
           </h1>
-          <p className="text-lg text-axis-black/60 mb-12 leading-relaxed max-w-md">
-            We transform visionary concepts into structural masterpieces. Sustainable, minimalist, and human-centric architecture for the next generation.
+          <p className="text-lg text-sonic-muted mb-12 leading-relaxed max-w-md">
+            The ultimate portable powerhouse. 360° immersive audio, 24-hour battery life, and military-grade durability.
           </p>
           <div className="flex flex-col sm:flex-row gap-6">
-            <button className="btn-axis">View Projects</button>
-            <button className="btn-axis-outline">Our Philosophy</button>
+            <button className="btn-sonic">Shop Titan X</button>
+            <button className="btn-sonic-outline">Watch Demo</button>
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative aspect-[4/5] overflow-hidden"
+          style={{ y: y1, scale }}
+          initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="relative"
         >
           <img 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
-            alt="Modern Architecture" 
-            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+            src="https://images.unsplash.com/photo-1608156639585-b3a032ef9689?auto=format&fit=crop&q=80&w=1000" 
+            alt="Titan X Speaker" 
+            className="w-full h-auto drop-shadow-[0_0_50px_rgba(0,255,102,0.2)]"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute bottom-12 left-12 bg-axis-white p-8 max-w-xs">
-            <h3 className="text-xl font-display font-bold mb-2">The Monolith</h3>
-            <p className="text-xs text-axis-black/50 uppercase tracking-widest mb-4">Berlin, Germany — 2025</p>
-            <button className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest border-b border-axis-black pb-1">
-              Explore Project <ArrowUpRight size={14} />
-            </button>
-          </div>
+          {/* Floating Specs */}
+          <motion.div 
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="absolute -top-10 -right-10 bg-sonic-gray/80 backdrop-blur-md p-6 rounded-2xl border border-white/10"
+          >
+            <div className="flex items-center gap-3 text-sonic-accent mb-2">
+              <Zap size={18} />
+              <span className="text-xs font-bold uppercase tracking-widest">120W Peak</span>
+            </div>
+            <p className="text-[10px] text-white/50 uppercase tracking-widest">Unrivaled Power</p>
+          </motion.div>
         </motion.div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-12 flex items-center gap-4">
-        <div className="w-12 h-[1px] bg-axis-black" />
-        <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Scroll to Explore</span>
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+        <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
+          <motion.div 
+            animate={{ y: [0, 48] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute top-0 left-0 w-full h-1/2 bg-sonic-accent"
+          />
+        </div>
       </div>
     </section>
   );
 };
 
-const Projects = () => {
-  const projects = [
+const ProductGrid = () => {
+  const products = [
     {
-      id: "01",
-      title: "Obsidian House",
-      location: "Reykjavik, Iceland",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000",
-      category: "Residential"
+      name: "Sonic Mini",
+      price: "$129",
+      tag: "Ultra Portable",
+      image: "https://images.unsplash.com/photo-1589003077984-894e133dabab?auto=format&fit=crop&q=80&w=1000",
+      color: "Cyan"
     },
     {
-      id: "02",
-      title: "Skyline Pavilion",
-      location: "Tokyo, Japan",
-      image: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=1000",
-      category: "Commercial"
+      name: "Pulse Party",
+      price: "$299",
+      tag: "RGB Lighting",
+      image: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&q=80&w=1000",
+      color: "Black"
     },
     {
-      id: "03",
-      title: "The Glass Atrium",
-      location: "London, UK",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000",
-      category: "Public Space"
+      name: "Outdoor Pro",
+      price: "$199",
+      tag: "IPX7 Waterproof",
+      image: "https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&q=80&w=1000",
+      color: "Sand"
+    },
+    {
+      name: "Studio Go",
+      price: "$249",
+      tag: "Hi-Res Audio",
+      image: "https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?auto=format&fit=crop&q=80&w=1000",
+      color: "Silver"
     }
   ];
 
   return (
-    <section id="projects" className="py-32 bg-axis-white">
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
-        <div className="flex justify-between items-end mb-24">
+    <section id="speakers" className="py-32 bg-sonic-black">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex justify-between items-end mb-20">
           <div>
-            <p className="text-xs uppercase tracking-[0.5em] text-axis-accent font-bold mb-4">Selected Works</p>
-            <h2 className="text-5xl md:text-7xl font-display font-bold">Featured <br /> Projects</h2>
+            <p className="text-xs uppercase tracking-[0.5em] text-sonic-accent font-bold mb-4">The Lineup</p>
+            <h2 className="text-5xl md:text-6xl font-display font-bold">CHOOSE YOUR <br /> VIBE</h2>
           </div>
-          <button className="btn-axis-outline">All Projects</button>
+          <button className="hidden md:flex items-center gap-3 text-xs font-black uppercase tracking-widest border-b-2 border-sonic-accent pb-2 hover:gap-6 transition-all">
+            View All Series <ArrowRight size={16} />
+          </button>
         </div>
 
-        <div className="space-y-32">
-          {projects.map((project, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {products.map((product, i) => (
             <motion.div 
-              key={project.id}
-              initial={{ opacity: 0, y: 50 }}
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-20 items-center`}
+              transition={{ delay: i * 0.1 }}
+              className="product-card group cursor-pointer"
             >
-              <div className="lg:w-3/5 relative group overflow-hidden">
+              <div className="aspect-square relative mb-8 overflow-hidden rounded-2xl bg-black/20">
                 <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className="w-full aspect-[16/9] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute top-0 left-0 project-number">{project.id}</div>
+                <div className="absolute top-4 left-4 bg-sonic-accent text-sonic-black text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
+                  {product.tag}
+                </div>
               </div>
-              <div className="lg:w-2/5">
-                <p className="text-xs uppercase tracking-widest text-axis-accent font-bold mb-4">{project.category}</p>
-                <h3 className="text-4xl md:text-5xl font-display font-bold mb-6">{project.title}</h3>
-                <p className="text-sm text-axis-black/50 uppercase tracking-widest mb-8">{project.location}</p>
-                <p className="text-axis-black/60 mb-10 leading-relaxed">
-                  A study in light and materiality. This project explores the boundaries between internal and external environments using sustainable glass and recycled steel.
-                </p>
-                <button className="flex items-center gap-4 text-xs font-bold uppercase tracking-[0.3em] border-b border-axis-black pb-2 hover:gap-8 transition-all">
-                  View Case Study <ArrowRight size={16} />
+              <h3 className="text-xl font-display font-bold mb-2 group-hover:text-sonic-accent transition-colors">{product.name}</h3>
+              <div className="flex justify-between items-center">
+                <span className="text-2xl font-black">{product.price}</span>
+                <button className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-sonic-accent hover:text-sonic-black transition-all">
+                  <Plus size={20} />
                 </button>
               </div>
             </motion.div>
@@ -230,44 +271,56 @@ const Projects = () => {
   );
 };
 
-const Services = () => {
-  const services = [
-    { title: "Architectural Design", desc: "Conceptualizing and developing structural plans that balance form and function." },
-    { title: "Urban Planning", desc: "Designing sustainable urban environments that foster community and growth." },
-    { title: "Interior Architecture", desc: "Crafting internal spaces that reflect the soul of the building and its inhabitants." },
-    { title: "Sustainability Consulting", desc: "Implementing green technologies and materials to minimize environmental impact." }
+const TechSection = () => {
+  const specs = [
+    { icon: <Bluetooth size={32} />, title: "Bluetooth 5.3", desc: "Ultra-stable connection up to 100ft range." },
+    { icon: <Battery size={32} />, title: "24H Battery", desc: "Power that lasts through the longest adventures." },
+    { icon: <Droplets size={32} />, title: "IPX7 Rated", desc: "Fully waterproof. It even floats in water." },
+    { icon: <ShieldCheck size={32} />, title: "Rugged Build", desc: "Drop-proof casing for extreme conditions." }
   ];
 
   return (
-    <section id="services" className="py-32 bg-axis-black text-axis-white overflow-hidden">
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
-        <div className="grid lg:grid-cols-2 gap-20">
-          <div>
-            <p className="text-xs uppercase tracking-[0.5em] text-axis-accent font-bold mb-8">What We Do</p>
-            <h2 className="text-5xl md:text-7xl font-display font-bold leading-[0.9] mb-12">Our <br /> Expertise</h2>
-            <p className="text-axis-white/60 text-lg leading-relaxed max-w-md mb-12">
-              We provide comprehensive design solutions across various scales, from private residences to large-scale urban developments.
-            </p>
-            <button className="btn-axis bg-axis-white text-axis-black hover:bg-axis-accent hover:text-axis-white">Download Portfolio</button>
-          </div>
+    <section id="tech" className="py-32 bg-sonic-gray relative overflow-hidden">
+      {/* Decorative Background Text */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 text-[20rem] font-display font-black text-white/[0.02] whitespace-nowrap pointer-events-none select-none">
+        TECHNOLOGY TECHNOLOGY TECHNOLOGY
+      </div>
 
-          <div className="grid gap-1">
-            {services.map((service, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group border-b border-axis-white/10 py-12 flex justify-between items-start cursor-pointer hover:bg-axis-white/5 px-8 transition-colors"
-              >
-                <div className="max-w-md">
-                  <h4 className="text-2xl font-display font-bold mb-4 group-hover:text-axis-accent transition-colors">{service.title}</h4>
-                  <p className="text-sm text-axis-white/40 leading-relaxed">{service.desc}</p>
-                </div>
-                <Plus size={24} className="group-hover:rotate-45 transition-transform text-axis-accent" />
-              </motion.div>
-            ))}
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <p className="text-xs uppercase tracking-[0.5em] text-sonic-accent font-bold mb-8">Engineered for Excellence</p>
+            <h2 className="text-5xl md:text-7xl font-display font-bold leading-[0.9] mb-12">BUILT TO <br /> <span className="text-sonic-accent">ENDURE</span></h2>
+            <div className="grid sm:grid-cols-2 gap-12">
+              {specs.map((spec, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <div className="text-sonic-accent mb-6">{spec.icon}</div>
+                  <h4 className="text-xl font-display font-bold mb-3">{spec.title}</h4>
+                  <p className="text-sm text-sonic-muted leading-relaxed">{spec.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          <div className="relative">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="aspect-square bg-sonic-accent/5 rounded-full flex items-center justify-center border border-sonic-accent/10"
+            >
+              <img 
+                src="https://images.unsplash.com/photo-1543512214-318c7553f230?auto=format&fit=crop&q=80&w=1000" 
+                alt="Tech Detail" 
+                className="w-2/3 h-auto drop-shadow-[0_0_30px_rgba(0,255,102,0.3)]"
+                referrerPolicy="no-referrer"
+              />
+            </motion.div>
           </div>
         </div>
       </div>
@@ -275,40 +328,31 @@ const Services = () => {
   );
 };
 
-const Philosophy = () => {
+const ExperienceSection = () => {
   return (
-    <section id="philosophy" className="py-32 bg-axis-gray-100">
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12">
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
-          <div className="order-2 lg:order-1">
-            <p className="text-xs uppercase tracking-[0.5em] text-axis-accent font-bold mb-8">The Philosophy</p>
-            <h2 className="text-5xl md:text-7xl font-display font-bold leading-[0.9] mb-12">Less is <br /> <span className="italic">Everything</span></h2>
-            <p className="text-axis-black/60 text-lg leading-relaxed mb-12">
-              Our design philosophy is rooted in the principles of modern minimalism. We believe that by stripping away the unnecessary, we reveal the true essence of a space.
-            </p>
-            <div className="grid grid-cols-2 gap-12">
-              <div>
-                <h4 className="text-4xl font-display font-bold mb-2">15+</h4>
-                <p className="text-[10px] uppercase tracking-widest text-axis-black/40 font-bold">Years of Innovation</p>
-              </div>
-              <div>
-                <h4 className="text-4xl font-display font-bold mb-2">120</h4>
-                <p className="text-[10px] uppercase tracking-widest text-axis-black/40 font-bold">Projects Completed</p>
-              </div>
-            </div>
-          </div>
-          <div className="order-1 lg:order-2 relative aspect-square">
-            <img 
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1000" 
-              className="w-full h-full object-cover grayscale"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute -bottom-12 -left-12 bg-axis-accent p-12 text-axis-white hidden md:block">
-              <p className="text-4xl font-display font-bold italic">"Architecture is the learned game, correct and magnificent, of forms assembled in the light."</p>
-              <p className="mt-8 text-xs uppercase tracking-widest font-bold">— Le Corbusier</p>
-            </div>
-          </div>
-        </div>
+    <section id="experience" className="relative h-[80vh] flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=2070" 
+          alt="Atmospheric Sound" 
+          className="w-full h-full object-cover opacity-40"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-sonic-black via-transparent to-sonic-black" />
+      </div>
+
+      <div className="relative z-10 text-center px-6">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-6xl md:text-9xl font-display font-bold mb-12 tracking-tighter">FEEL THE <br /> <span className="text-sonic-accent text-glow">RHYTHM</span></h2>
+          <button className="w-24 h-24 bg-sonic-accent rounded-full flex items-center justify-center text-sonic-black hover:scale-110 transition-transform shadow-[0_0_40px_rgba(0,255,102,0.5)]">
+            <Play size={32} fill="currentColor" />
+          </button>
+          <p className="mt-12 text-xs uppercase tracking-[0.5em] font-black">Experience Sonic 3D Audio</p>
+        </motion.div>
       </div>
     </section>
   );
@@ -316,83 +360,72 @@ const Philosophy = () => {
 
 const Footer = () => {
   return (
-    <footer id="contact" className="bg-axis-white pt-32 pb-12 px-6 md:px-12 border-t border-axis-black/5">
-      <div className="max-w-[1800px] mx-auto">
-        <div className="grid lg:grid-cols-2 gap-24 mb-32">
-          <div>
-            <h2 className="text-6xl md:text-8xl font-display font-bold leading-[0.85] tracking-tighter mb-12">Let's Build <br /> <span className="text-axis-accent">Together</span></h2>
-            <div className="space-y-8">
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-axis-gray-100 rounded-full flex items-center justify-center text-axis-black">
-                  <MapPin size={20} />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-axis-black/40 font-bold">Studio</p>
-                  <p className="font-bold">128 Bauhaus Blvd, Berlin, DE</p>
-                </div>
+    <footer id="support" className="bg-sonic-black pt-32 pb-12 px-6 border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-16 mb-24">
+          <div className="col-span-2">
+            <div className="flex items-center gap-2 mb-8">
+              <div className="w-8 h-8 bg-sonic-accent rounded-full flex items-center justify-center">
+                <Volume2 size={18} className="text-sonic-black" />
               </div>
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-axis-gray-100 rounded-full flex items-center justify-center text-axis-black">
-                  <Phone size={20} />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-axis-black/40 font-bold">Call</p>
-                  <p className="font-bold">+49 30 1234 5678</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-axis-gray-100 rounded-full flex items-center justify-center text-axis-black">
-                  <Mail size={20} />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-axis-black/40 font-bold">Email</p>
-                  <p className="font-bold">hello@axis-arch.com</p>
-                </div>
-              </div>
+              <span className="text-2xl font-display font-bold tracking-tighter">SONIC</span>
+            </div>
+            <p className="text-sonic-muted max-w-xs leading-relaxed text-sm mb-10">
+              Pushing the boundaries of portable audio. Designed for those who live life out loud.
+            </p>
+            <div className="flex gap-4">
+              {[Instagram, Twitter, Facebook, Youtube].map((Icon, i) => (
+                <a key={i} href="#" className="w-10 h-10 rounded-full bg-sonic-gray flex items-center justify-center hover:bg-sonic-accent hover:text-sonic-black transition-all">
+                  <Icon size={18} />
+                </a>
+              ))}
             </div>
           </div>
+          
+          <div>
+            <h4 className="text-xs uppercase tracking-widest font-black mb-8 text-sonic-accent">Shop</h4>
+            <ul className="space-y-4 text-sm text-sonic-muted">
+              {['All Speakers', 'New Arrivals', 'Best Sellers', 'Accessories'].map(item => (
+                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
+              ))}
+            </ul>
+          </div>
 
-          <div className="bg-axis-gray-100 p-12">
-            <form className="space-y-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-axis-black/40">Name</label>
-                  <input type="text" className="w-full bg-transparent border-b border-axis-black/10 py-4 focus:outline-none focus:border-axis-accent transition-colors" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-axis-black/40">Email</label>
-                  <input type="email" className="w-full bg-transparent border-b border-axis-black/10 py-4 focus:outline-none focus:border-axis-accent transition-colors" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest font-bold text-axis-black/40">Project Type</label>
-                <select className="w-full bg-transparent border-b border-axis-black/10 py-4 focus:outline-none focus:border-axis-accent transition-colors appearance-none">
-                  <option>Residential</option>
-                  <option>Commercial</option>
-                  <option>Public Space</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest font-bold text-axis-black/40">Message</label>
-                <textarea rows={4} className="w-full bg-transparent border-b border-axis-black/10 py-4 focus:outline-none focus:border-axis-accent transition-colors" />
-              </div>
-              <button className="btn-axis w-full">Send Inquiry</button>
-            </form>
+          <div>
+            <h4 className="text-xs uppercase tracking-widest font-black mb-8 text-sonic-accent">Technology</h4>
+            <ul className="space-y-4 text-sm text-sonic-muted">
+              {['Sonic 3D', 'Titan Series', 'Sustainability', 'App Control'].map(item => (
+                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-widest font-black mb-8 text-sonic-accent">Support</h4>
+            <ul className="space-y-4 text-sm text-sonic-muted">
+              {['Help Center', 'Shipping', 'Returns', 'Warranty'].map(item => (
+                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-widest font-black mb-8 text-sonic-accent">Contact</h4>
+            <p className="text-sm text-sonic-muted leading-relaxed">
+              100 Sound Ave,<br />
+              San Francisco, CA<br />
+              hello@sonic.audio
+            </p>
           </div>
         </div>
 
-        <div className="pt-12 border-t border-axis-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-12">
-            <span className="text-2xl font-display font-bold tracking-tighter">AXIS</span>
-            <p className="text-[10px] uppercase tracking-widest text-axis-black/40 font-bold">
-              © 2026 AXIS Architecture. All Rights Reserved.
-            </p>
-          </div>
-          <div className="flex gap-8">
-            {['Instagram', 'Twitter', 'LinkedIn', 'Behance'].map(item => (
-              <a key={item} href="#" className="text-[10px] uppercase tracking-widest font-bold hover:text-axis-accent transition-colors">{item}</a>
-            ))}
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[10px] uppercase tracking-widest text-sonic-muted font-bold">
+            © 2026 SONIC Audio. All Rights Reserved.
+          </p>
+          <div className="flex gap-8 text-[10px] uppercase tracking-widest text-sonic-muted font-bold">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
@@ -404,13 +437,13 @@ const Footer = () => {
 
 export default function App() {
   return (
-    <div className="min-h-screen selection:bg-axis-accent selection:text-axis-white">
+    <div className="min-h-screen selection:bg-sonic-accent selection:text-sonic-black">
       <Navbar />
       <main>
         <Hero />
-        <Projects />
-        <Services />
-        <Philosophy />
+        <ProductGrid />
+        <TechSection />
+        <ExperienceSection />
       </main>
       <Footer />
     </div>
