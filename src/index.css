@@ -1,48 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", sans-serif;
-  --color-brand-50: #f0f9ff;
-  --color-brand-100: #e0f2fe;
-  --color-brand-200: #bae6fd;
-  --color-brand-300: #7dd3fc;
-  --color-brand-400: #38bdf8;
-  --color-brand-500: #0ea5e9;
-  --color-brand-600: #0284c7;
-  --color-brand-700: #0369a1;
-  --color-brand-800: #075985;
-  --color-brand-900: #0c4a6e;
+  --font-serif: "Cormorant Garamond", serif;
+  --color-aura-50: #fdfcfb;
+  --color-aura-100: #f5f2ed;
+  --color-aura-200: #e8e2d6;
+  --color-aura-300: #d1c7b3;
+  --color-aura-900: #1a1a1a;
 }
 
 @layer base {
   body {
-    @apply font-sans bg-white text-slate-900 antialiased;
+    @apply font-sans bg-aura-50 text-aura-900 antialiased;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight;
+  h1, h2, h3, h4 {
+    @apply font-serif tracking-tight;
   }
 }
 
-.glass {
-  @apply bg-white/70 backdrop-blur-lg border border-white/20;
+.editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
 }
 
-.glass-dark {
-  @apply bg-slate-900/80 backdrop-blur-lg border border-slate-800/50;
+.reveal-image {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-indigo-600;
+.reveal-image.active {
+  clip-path: inset(0 0 0 0);
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.nav-link-underline {
+  @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-aura-900 after:transition-all hover:after:w-full;
 }

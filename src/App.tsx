@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { 
+  ShoppingBag, 
+  Search, 
   Menu, 
   X, 
-  ChevronRight, 
-  Zap, 
-  Shield, 
-  BarChart3, 
-  Users, 
   ArrowRight, 
-  Check, 
-  Star, 
-  Globe, 
-  Cpu,
-  Layers,
-  MessageSquare,
-  Play
+  Instagram, 
+  Facebook, 
+  Twitter,
+  ChevronLeft,
+  ChevronRight,
+  Heart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -25,89 +21,88 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Features', href: '#features' },
-    { name: 'Solutions', href: '#solutions' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Testimonials', href: '#testimonials' },
-  ];
-
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass py-3 shadow-sm' : 'bg-transparent py-5'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
-              <Zap size={24} fill="currentColor" />
-            </div>
-            <span className="text-xl font-bold font-display tracking-tight">Nexus AI</span>
-          </div>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isScrolled ? 'bg-aura-50/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-8'}`}>
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12 flex justify-between items-center">
+        {/* Left: Links */}
+        <div className="hidden lg:flex items-center gap-10">
+          {['Shop', 'Collections', 'Journal', 'About'].map((item) => (
+            <a key={item} href="#" className="text-[13px] uppercase tracking-[0.2em] font-medium nav-link-underline">
+              {item}
+            </a>
+          ))}
+        </div>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href} 
-                className="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
-            <div className="flex items-center gap-4 ml-4">
-              <button className="text-sm font-semibold text-slate-700 hover:text-brand-600 px-4 py-2 transition-colors">
-                Log in
-              </button>
-              <button className="bg-slate-900 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-slate-800 transition-all shadow-md active:scale-95">
-                Get Started
-              </button>
-            </div>
-          </div>
+        {/* Center: Logo */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <a href="/" className="text-3xl md:text-4xl font-serif tracking-[0.1em] font-light">AURA</a>
+        </div>
 
-          {/* Mobile Menu Toggle */}
+        {/* Right: Icons */}
+        <div className="flex items-center gap-6">
+          <button className="hidden md:block hover:opacity-50 transition-opacity">
+            <Search size={20} strokeWidth={1.5} />
+          </button>
+          <button className="hover:opacity-50 transition-opacity relative">
+            <ShoppingBag size={20} strokeWidth={1.5} />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-aura-900 text-white text-[10px] flex items-center justify-center rounded-full">0</span>
+          </button>
           <button 
-            className="md:hidden p-2 text-slate-600"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden hover:opacity-50 transition-opacity"
+            onClick={() => setIsMobileMenuOpen(true)}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu size={20} strokeWidth={1.5} />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 glass border-t border-slate-100 shadow-xl md:hidden overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-aura-900/40 backdrop-blur-sm z-[60] lg:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div className="px-4 py-6 space-y-4">
-              {navLinks.map((link) => (
-                <a 
-                  key={link.name} 
-                  href={link.href} 
-                  className="block text-lg font-medium text-slate-700 hover:text-brand-600"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-              <div className="pt-4 flex flex-col gap-3">
-                <button className="w-full py-3 text-center font-semibold text-slate-700 border border-slate-200 rounded-xl">
-                  Log in
-                </button>
-                <button className="w-full py-3 text-center font-semibold text-white bg-brand-600 rounded-xl shadow-lg shadow-brand-500/20">
-                  Get Started
-                </button>
+            <motion.div 
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="absolute top-0 right-0 bottom-0 w-[80%] max-w-sm bg-aura-50 p-12 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                className="absolute top-8 right-8"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <X size={24} strokeWidth={1} />
+              </button>
+              
+              <div className="mt-20 space-y-8">
+                {['Shop All', 'New Arrivals', 'Collections', 'Journal', 'Our Story'].map((item) => (
+                  <a key={item} href="#" className="block text-3xl font-serif hover:italic transition-all">
+                    {item}
+                  </a>
+                ))}
               </div>
-            </div>
+
+              <div className="mt-auto pt-12 border-t border-aura-200">
+                <p className="text-xs uppercase tracking-widest text-aura-300 mb-4">Follow Us</p>
+                <div className="flex gap-6">
+                  <Instagram size={20} strokeWidth={1.5} />
+                  <Twitter size={20} strokeWidth={1.5} />
+                  <Facebook size={20} strokeWidth={1.5} />
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -117,145 +112,144 @@ const Navbar = () => {
 
 const Hero = () => {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-100/50 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-indigo-100/40 rounded-full blur-[100px]" />
+    <section className="relative h-screen w-full overflow-hidden bg-aura-200">
+      <motion.div 
+        initial={{ scale: 1.1 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 2, ease: "easeOut" }}
+        className="absolute inset-0"
+      >
+        <img 
+          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=2070" 
+          alt="Fashion Editorial" 
+          className="w-full h-full object-cover"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0 bg-black/10" />
+      </motion.div>
+
+      <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="text-white text-xs uppercase tracking-[0.4em] mb-6 font-medium"
+        >
+          Spring / Summer 2026
+        </motion.p>
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 1 }}
+          className="text-white text-6xl md:text-8xl lg:text-9xl font-serif font-light mb-12"
+        >
+          The Art of <br /> <span className="italic">Simplicity</span>
+        </motion.h1>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+        >
+          <button className="group relative px-12 py-4 bg-white text-aura-900 text-xs uppercase tracking-widest font-bold overflow-hidden transition-all hover:bg-aura-900 hover:text-white">
+            <span className="relative z-10">Explore Collection</span>
+          </button>
+        </motion.div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-bold uppercase tracking-wider mb-6 border border-brand-100">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-              </span>
-              v2.0 is now live
-            </span>
-          </motion.div>
-
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold font-display leading-[1.1] mb-8"
-          >
-            Scale your business with <br />
-            <span className="text-gradient">Intelligent Automation</span>
-          </motion.h1>
-
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed"
-          >
-            Nexus AI empowers modern teams to automate workflows, analyze data in real-time, and deliver exceptional customer experiences at scale.
-          </motion.p>
-
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+      >
+        <div className="w-[1px] h-16 bg-white/30 relative overflow-hidden">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <button className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/20 flex items-center justify-center gap-2 group">
-              Start Free Trial
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 rounded-full font-bold text-lg border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
-              <Play size={18} fill="currentColor" />
-              Watch Demo
-            </button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-20 relative"
-          >
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-50 p-2">
-              <img 
-                src="https://picsum.photos/seed/dashboard/1600/900" 
-                alt="Nexus AI Dashboard" 
-                className="rounded-xl w-full h-auto shadow-inner"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            {/* Decorative elements around the image */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-brand-400/10 rounded-full blur-3xl -z-10" />
-            <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-indigo-400/10 rounded-full blur-3xl -z-10" />
-          </motion.div>
+            animate={{ y: [0, 64] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-0 left-0 w-full h-1/2 bg-white"
+          />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
 
-const Features = () => {
-  const features = [
+const NewArrivals = () => {
+  const products = [
     {
-      icon: <Zap className="text-brand-500" />,
-      title: "Lightning Fast",
-      description: "Optimized for speed. Get real-time insights and automated actions in milliseconds."
+      id: 1,
+      name: "Silk Slip Dress",
+      price: "$240",
+      image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000",
+      category: "Dresses"
     },
     {
-      icon: <Shield className="text-brand-500" />,
-      title: "Enterprise Security",
-      description: "Bank-grade encryption and SOC2 compliance to keep your data safe and secure."
+      id: 2,
+      name: "Linen Blazer",
+      price: "$310",
+      image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=1000",
+      category: "Outerwear"
     },
     {
-      icon: <BarChart3 className="text-brand-500" />,
-      title: "Advanced Analytics",
-      description: "Deep dive into your performance metrics with customizable dashboards and reports."
+      id: 3,
+      name: "Cashmere Sweater",
+      price: "$195",
+      image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&q=80&w=1000",
+      category: "Knitwear"
     },
     {
-      icon: <Users className="text-brand-500" />,
-      title: "Team Collaboration",
-      description: "Built for teams of all sizes. Share insights, assign tasks, and collaborate seamlessly."
-    },
-    {
-      icon: <Globe className="text-brand-500" />,
-      title: "Global Infrastructure",
-      description: "Deploy and scale globally with our distributed network of high-performance nodes."
-    },
-    {
-      icon: <Cpu className="text-brand-500" />,
-      title: "AI-Powered Engine",
-      description: "Proprietary machine learning models that adapt to your specific business needs."
+      id: 4,
+      name: "Tailored Trousers",
+      price: "$180",
+      image: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&q=80&w=1000",
+      category: "Bottoms"
     }
   ];
 
   return (
-    <section id="features" className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-brand-600 font-bold text-sm uppercase tracking-widest mb-3">Features</h2>
-          <h3 className="text-3xl md:text-4xl font-extrabold font-display text-slate-900 mb-4">Everything you need to scale</h3>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-            Powerful tools designed to help you build, grow, and manage your business more efficiently.
-          </p>
+    <section className="py-32 px-6 md:px-12">
+      <div className="max-w-[1800px] mx-auto">
+        <div className="flex justify-between items-end mb-16">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-aura-300 mb-4">Curated Selection</p>
+            <h2 className="text-4xl md:text-5xl font-serif">New Arrivals</h2>
+          </div>
+          <a href="#" className="hidden md:flex items-center gap-2 text-xs uppercase tracking-widest font-bold border-b border-aura-900 pb-1 hover:opacity-50 transition-opacity">
+            View All <ArrowRight size={14} />
+          </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+          {products.map((product) => (
             <motion.div 
-              key={idx}
-              whileHover={{ y: -5 }}
-              className="p-8 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300"
+              key={product.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="group cursor-pointer"
             >
-              <div className="w-12 h-12 bg-brand-50 rounded-2xl flex items-center justify-center mb-6">
-                {feature.icon}
+              <div className="relative aspect-[3/4] overflow-hidden bg-aura-100 mb-6">
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                  referrerPolicy="no-referrer"
+                />
+                <button className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white">
+                  <Heart size={18} strokeWidth={1.5} />
+                </button>
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <button className="w-full py-3 bg-aura-900 text-white text-[10px] uppercase tracking-widest font-bold">
+                    Quick Add
+                  </button>
+                </div>
               </div>
-              <h4 className="text-xl font-bold mb-3 text-slate-900">{feature.title}</h4>
-              <p className="text-slate-600 leading-relaxed">{feature.description}</p>
+              <p className="text-[10px] uppercase tracking-widest text-aura-300 mb-2">{product.category}</p>
+              <div className="flex justify-between items-start">
+                <h3 className="text-lg font-serif">{product.name}</h3>
+                <span className="text-sm font-medium">{product.price}</span>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -264,253 +258,334 @@ const Features = () => {
   );
 };
 
-const Showcase = () => {
+const EditorialSection = () => {
   return (
-    <section id="solutions" className="py-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
+    <section className="bg-aura-100 py-32 px-6 md:px-12 overflow-hidden">
+      <div className="max-w-[1800px] mx-auto grid lg:grid-cols-2 gap-24 items-center">
+        <div className="relative">
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 1 }}
+            className="aspect-[4/5] relative z-10"
           >
-            <h2 className="text-brand-600 font-bold text-sm uppercase tracking-widest mb-3">Intelligent Workflows</h2>
-            <h3 className="text-4xl md:text-5xl font-extrabold font-display text-slate-900 mb-6 leading-tight">
-              Automate the mundane, <br />focus on the <span className="text-brand-600">extraordinary</span>
-            </h3>
-            <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-              Our visual workflow builder allows you to connect over 500+ apps and create complex automation sequences without writing a single line of code.
-            </p>
-            
-            <ul className="space-y-4 mb-10">
-              {[
-                "Visual drag-and-drop workflow builder",
-                "Pre-built automation templates for every industry",
-                "Advanced conditional logic and branching",
-                "Real-time monitoring and error handling"
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="mt-1 bg-brand-100 text-brand-600 rounded-full p-1">
-                    <Check size={14} strokeWidth={3} />
-                  </div>
-                  <span className="text-slate-700 font-medium">{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <button className="flex items-center gap-2 text-brand-600 font-bold hover:gap-3 transition-all">
-              Explore our solutions <ChevronRight size={20} />
-            </button>
+            <img 
+              src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&q=80&w=1000" 
+              alt="Editorial" 
+              className="w-full h-full object-cover shadow-2xl"
+              referrerPolicy="no-referrer"
+            />
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative"
+            transition={{ duration: 1, delay: 0.3 }}
+            className="absolute -bottom-12 -right-12 w-2/3 aspect-square hidden md:block"
           >
-            <div className="relative z-10 glass p-4 rounded-3xl shadow-2xl border-slate-200">
-              <img 
-                src="https://picsum.photos/seed/workflow/1200/1000" 
-                alt="Workflow Builder" 
-                className="rounded-2xl shadow-lg w-full h-auto"
-                referrerPolicy="no-referrer"
-              />
+            <img 
+              src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=1000" 
+              alt="Editorial Detail" 
+              className="w-full h-full object-cover shadow-xl"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        </div>
+
+        <div className="max-w-xl">
+          <p className="text-xs uppercase tracking-[0.3em] text-aura-300 mb-8">Our Philosophy</p>
+          <h2 className="text-5xl md:text-6xl font-serif mb-10 leading-tight">
+            Conscious Craftsmanship <br /> & <span className="italic">Timeless Design</span>
+          </h2>
+          <p className="text-lg text-aura-900/70 mb-12 leading-relaxed">
+            We believe in clothing that lasts beyond seasons. Our pieces are ethically sourced and meticulously crafted from the finest natural fibers, designed to be the foundation of a modern, conscious wardrobe.
+          </p>
+          <div className="grid grid-cols-2 gap-12">
+            <div>
+              <h4 className="text-2xl font-serif mb-2 italic">100%</h4>
+              <p className="text-xs uppercase tracking-widest text-aura-300">Organic Materials</p>
             </div>
-            {/* Decorative background circle */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-brand-50 rounded-full -z-10 blur-3xl opacity-60" />
-          </motion.div>
+            <div>
+              <h4 className="text-2xl font-serif mb-2 italic">Zero</h4>
+              <p className="text-xs uppercase tracking-widest text-aura-300">Waste Policy</p>
+            </div>
+          </div>
+          <button className="mt-16 flex items-center gap-4 text-xs uppercase tracking-[0.2em] font-bold border-b border-aura-900 pb-2 hover:gap-6 transition-all">
+            Read Our Story <ArrowRight size={16} />
+          </button>
         </div>
       </div>
     </section>
   );
 };
 
-const Testimonials = () => {
-  const testimonials = [
+const Collections = () => {
+  const collections = [
     {
-      name: "Sarah Jenkins",
-      role: "CTO at TechFlow",
-      content: "Nexus AI has completely transformed how our engineering team handles deployment cycles. We've seen a 40% increase in productivity since switching.",
-      avatar: "https://i.pravatar.cc/150?u=sarah"
+      title: "The Linen Series",
+      subtitle: "Breathable Essentials",
+      image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&q=80&w=1000",
+      size: "large"
     },
     {
-      name: "Michael Chen",
-      role: "Head of Growth at ScaleUp",
-      content: "The analytics engine is second to none. Being able to visualize our entire funnel in real-time has allowed us to make much faster data-driven decisions.",
-      avatar: "https://i.pravatar.cc/150?u=michael"
+      title: "Silk & Satin",
+      subtitle: "Evening Grace",
+      image: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?auto=format&fit=crop&q=80&w=1000",
+      size: "small"
     },
     {
-      name: "Elena Rodriguez",
-      role: "Founder of Bloom",
-      content: "As a non-technical founder, the ease of use was a game-changer. I was able to set up our entire customer support automation in just one afternoon.",
-      avatar: "https://i.pravatar.cc/150?u=elena"
+      title: "Organic Cotton",
+      subtitle: "Daily Comfort",
+      image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=1000",
+      size: "small"
     }
   ];
 
   return (
-    <section id="testimonials" className="py-24 bg-slate-900 text-white overflow-hidden relative">
-      {/* Background glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-brand-600/20 rounded-full blur-[120px] -z-0" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px] -z-0" />
+    <section className="py-32 px-6 md:px-12 bg-white">
+      <div className="max-w-[1800px] mx-auto">
+        <div className="text-center mb-20">
+          <p className="text-xs uppercase tracking-[0.4em] text-aura-300 mb-4">Explore</p>
+          <h2 className="text-5xl font-serif italic">Featured Collections</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-[800px]">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="md:col-span-2 relative group overflow-hidden cursor-pointer"
+          >
+            <img src={collections[0].image} alt={collections[0].title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
+            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
+            <div className="absolute bottom-12 left-12 text-white">
+              <p className="text-xs uppercase tracking-widest mb-2">{collections[0].subtitle}</p>
+              <h3 className="text-4xl font-serif mb-6">{collections[0].title}</h3>
+              <button className="text-xs uppercase tracking-widest font-bold border-b border-white pb-1">Shop Collection</button>
+            </div>
+          </motion.div>
+          
+          <div className="flex flex-col gap-8">
+            {collections.slice(1).map((col, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                className="flex-1 relative group overflow-hidden cursor-pointer"
+              >
+                <img src={col.image} alt={col.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+                <div className="absolute bottom-8 left-8 text-white">
+                  <p className="text-[10px] uppercase tracking-widest mb-1">{col.subtitle}</p>
+                  <h3 className="text-2xl font-serif mb-4">{col.title}</h3>
+                  <button className="text-[10px] uppercase tracking-widest font-bold border-b border-white pb-1">View</button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-brand-400 font-bold text-sm uppercase tracking-widest mb-3">Testimonials</h2>
-          <h3 className="text-3xl md:text-4xl font-extrabold font-display mb-4">Trusted by innovative teams</h3>
+const CategoryShowcase = () => {
+  const categories = [
+    { name: "Womenswear", image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1000" },
+    { name: "Menswear", image: "https://images.unsplash.com/photo-1488161628813-04466f872be2?auto=format&fit=crop&q=80&w=1000" },
+    { name: "Accessories", image: "https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&q=80&w=1000" }
+  ];
+
+  return (
+    <section className="py-24 px-6 md:px-12 bg-aura-50">
+      <div className="max-w-[1800px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        {categories.map((cat, i) => (
+          <motion.div 
+            key={i}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className="relative aspect-[4/5] overflow-hidden group cursor-pointer"
+          >
+            <img src={cat.image} alt={cat.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" referrerPolicy="no-referrer" />
+            <div className="absolute inset-0 bg-aura-900/10 group-hover:bg-transparent transition-colors" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h3 className="text-white text-3xl font-serif tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500">{cat.name}</h3>
+            </div>
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-xs uppercase tracking-[0.3em] font-medium group-hover:hidden">
+              {cat.name}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const Materials = () => {
+  return (
+    <section className="py-32 px-6 md:px-12 bg-white overflow-hidden">
+      <div className="max-w-[1800px] mx-auto flex flex-col lg:flex-row items-center gap-20">
+        <div className="lg:w-1/2">
+          <p className="text-xs uppercase tracking-[0.4em] text-aura-300 mb-8">The Foundation</p>
+          <h2 className="text-5xl md:text-6xl font-serif mb-12 leading-tight">Superior Materials, <br /><span className="italic">Ethically Sourced</span></h2>
+          
+          <div className="space-y-12">
+            {[
+              { title: "Pure Mulberry Silk", desc: "Known for its natural sheen and incredible strength, our silk is sourced from sustainable farms." },
+              { title: "Belgian Linen", desc: "A timeless fabric that grows softer with every wash, perfect for effortless summer elegance." },
+              { title: "Recycled Cashmere", desc: "Luxurious warmth with a reduced environmental footprint, repurposed from premium fibers." }
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                className="border-l border-aura-200 pl-8"
+              >
+                <h4 className="text-xl font-serif mb-3">{item.title}</h4>
+                <p className="text-aura-900/60 text-sm leading-relaxed max-w-md">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="lg:w-1/2 relative">
+          <div className="grid grid-cols-2 gap-4">
+            <motion.img 
+              initial={{ opacity: 0, scale: 1.1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&q=80&w=1000" 
+              className="w-full aspect-[3/4] object-cover rounded-sm"
+              referrerPolicy="no-referrer"
+            />
+            <motion.img 
+              initial={{ opacity: 0, scale: 1.1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1000" 
+              className="w-full aspect-[3/4] object-cover rounded-sm mt-12"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Journal = () => {
+  const posts = [
+    {
+      title: "The Art of Minimalist Living",
+      date: "March 12, 2026",
+      image: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=1000",
+      category: "Lifestyle"
+    },
+    {
+      title: "Sustainable Fibers: A Deep Dive",
+      date: "February 28, 2026",
+      image: "https://images.unsplash.com/photo-1558444479-c84829091c22?auto=format&fit=crop&q=80&w=1000",
+      category: "Sustainability"
+    },
+    {
+      title: "Spring Palette: Earthy Tones",
+      date: "February 15, 2026",
+      image: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?auto=format&fit=crop&q=80&w=1000",
+      category: "Design"
+    }
+  ];
+
+  return (
+    <section className="py-32 px-6 md:px-12 bg-aura-50">
+      <div className="max-w-[1800px] mx-auto">
+        <div className="flex justify-between items-end mb-16">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-aura-300 mb-4">The Journal</p>
+            <h2 className="text-4xl md:text-5xl font-serif italic">Stories & Insights</h2>
+          </div>
+          <button className="text-xs uppercase tracking-widest font-bold border-b border-aura-900 pb-1">Read All</button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {posts.map((post, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="p-8 rounded-3xl bg-slate-800/50 border border-slate-700 backdrop-blur-sm"
+              className="group cursor-pointer"
             >
-              <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={16} fill="#38bdf8" className="text-brand-400" />
-                ))}
+              <div className="aspect-[16/10] overflow-hidden mb-6">
+                <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
               </div>
-              <p className="text-slate-300 text-lg italic mb-8 leading-relaxed">"{t.content}"</p>
-              <div className="flex items-center gap-4">
-                <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full border-2 border-brand-500/30" referrerPolicy="no-referrer" />
-                <div>
-                  <h4 className="font-bold text-white">{t.name}</h4>
-                  <p className="text-slate-400 text-sm">{t.role}</p>
-                </div>
-              </div>
+              <p className="text-[10px] uppercase tracking-widest text-aura-300 mb-3">{post.category} — {post.date}</p>
+              <h3 className="text-2xl font-serif group-hover:italic transition-all">{post.title}</h3>
             </motion.div>
           ))}
         </div>
-
-        <div className="mt-20 flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-          {/* Logo placeholders */}
-          <div className="text-2xl font-bold font-display tracking-tighter">TECHFLOW</div>
-          <div className="text-2xl font-bold font-display tracking-tighter">SCALEUP</div>
-          <div className="text-2xl font-bold font-display tracking-tighter">BLOOM</div>
-          <div className="text-2xl font-bold font-display tracking-tighter">NEXUS</div>
-          <div className="text-2xl font-bold font-display tracking-tighter">QUANTUM</div>
-        </div>
       </div>
     </section>
   );
 };
 
-const Pricing = () => {
-  const plans = [
-    {
-      name: "Starter",
-      price: "0",
-      description: "Perfect for side projects and small experiments.",
-      features: ["Up to 3 projects", "Basic analytics", "Community support", "1GB storage"],
-      cta: "Start for Free",
-      popular: false
-    },
-    {
-      name: "Pro",
-      price: "49",
-      description: "Everything you need to grow your business.",
-      features: ["Unlimited projects", "Advanced analytics", "Priority email support", "50GB storage", "Custom domains", "Team collaboration"],
-      cta: "Get Started",
-      popular: true
-    },
-    {
-      name: "Enterprise",
-      price: "Custom",
-      description: "Advanced features for large-scale operations.",
-      features: ["Dedicated account manager", "24/7 phone support", "Custom integrations", "Unlimited storage", "SLA guarantees", "On-premise deployment"],
-      cta: "Contact Sales",
-      popular: false
-    }
+const SocialFeed = () => {
+  const images = [
+    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1000",
+    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&q=80&w=1000",
+    "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=1000",
+    "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&q=80&w=1000",
+    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&q=80&w=1000",
+    "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=80&w=1000"
   ];
 
   return (
-    <section id="pricing" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-brand-600 font-bold text-sm uppercase tracking-widest mb-3">Pricing</h2>
-          <h3 className="text-3xl md:text-4xl font-extrabold font-display text-slate-900 mb-4">Simple, transparent pricing</h3>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-            Choose the plan that's right for your business. No hidden fees, cancel anytime.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {plans.map((plan, i) => (
-            <div 
-              key={i}
-              className={`relative p-8 rounded-3xl border ${plan.popular ? 'border-brand-500 shadow-2xl shadow-brand-500/10 scale-105 z-10' : 'border-slate-100 shadow-sm'} flex flex-col`}
-            >
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-500 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-widest">
-                  Most Popular
-                </div>
-              )}
-              <div className="mb-8">
-                <h4 className="text-xl font-bold text-slate-900 mb-2">{plan.name}</h4>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold text-slate-900">{plan.price === 'Custom' ? '' : '$'}{plan.price}</span>
-                  {plan.price !== 'Custom' && <span className="text-slate-500 font-medium">/mo</span>}
-                </div>
-                <p className="mt-4 text-slate-600 text-sm leading-relaxed">{plan.description}</p>
-              </div>
-
-              <ul className="space-y-4 mb-10 flex-grow">
-                {plan.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-3 text-sm text-slate-700">
-                    <Check size={16} className="text-brand-500" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              <button className={`w-full py-4 rounded-xl font-bold transition-all ${plan.popular ? 'bg-brand-600 text-white hover:bg-brand-700 shadow-lg shadow-brand-500/20' : 'bg-slate-50 text-slate-900 hover:bg-slate-100 border border-slate-200'}`}>
-                {plan.cta}
-              </button>
+    <section className="py-24 bg-white overflow-hidden">
+      <div className="text-center mb-12">
+        <p className="text-xs uppercase tracking-[0.4em] text-aura-300 mb-4">Follow Us</p>
+        <h3 className="text-2xl font-serif italic">@aura_minimalist</h3>
+      </div>
+      
+      <div className="flex gap-4 px-4 overflow-x-auto no-scrollbar">
+        {images.map((img, i) => (
+          <div key={i} className="flex-shrink-0 w-64 aspect-square relative group cursor-pointer">
+            <img src={img} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <Instagram className="text-white" size={24} />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );
 };
 
-const CTA = () => {
+const Newsletter = () => {
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-[3rem] bg-brand-600 overflow-hidden p-12 md:p-20 text-center text-white shadow-2xl shadow-brand-500/30">
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-          </div>
-          
-          <div className="relative z-10 max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-extrabold font-display mb-6 leading-tight">
-              Ready to supercharge your workflow?
-            </h2>
-            <p className="text-xl text-brand-100 mb-10 leading-relaxed">
-              Join over 10,000+ teams who are already using Nexus AI to build the future. Start your 14-day free trial today.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="w-full sm:w-auto px-10 py-5 bg-white text-brand-600 rounded-full font-bold text-lg hover:bg-brand-50 transition-all shadow-xl">
-                Get Started for Free
-              </button>
-              <button className="w-full sm:w-auto px-10 py-5 bg-brand-700/50 text-white border border-brand-400/30 rounded-full font-bold text-lg hover:bg-brand-700 transition-all backdrop-blur-sm">
-                Schedule a Demo
-              </button>
-            </div>
-            <p className="mt-8 text-brand-200 text-sm font-medium">
-              No credit card required • Cancel anytime • 14-day free trial
-            </p>
-          </div>
-        </div>
+    <section className="py-32 px-6 text-center bg-white">
+      <div className="max-w-2xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-serif mb-6">Join the AURA Journal</h2>
+        <p className="text-aura-900/60 mb-12 leading-relaxed">
+          Subscribe to receive early access to new collections, editorial stories, and exclusive invitations.
+        </p>
+        <form className="flex flex-col sm:flex-row gap-4">
+          <input 
+            type="email" 
+            placeholder="Email Address" 
+            className="flex-grow bg-aura-100 px-8 py-4 text-sm focus:outline-none focus:ring-1 focus:ring-aura-900 transition-all"
+          />
+          <button className="px-12 py-4 bg-aura-900 text-white text-xs uppercase tracking-widest font-bold hover:bg-black transition-colors">
+            Subscribe
+          </button>
+        </form>
       </div>
     </section>
   );
@@ -518,64 +593,60 @@ const CTA = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-50 pt-20 pb-10 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
-          <div className="col-span-2 lg:col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white">
-                <Zap size={18} fill="currentColor" />
-              </div>
-              <span className="text-xl font-bold font-display tracking-tight">Nexus AI</span>
-            </div>
-            <p className="text-slate-500 max-w-xs mb-8 leading-relaxed">
-              The intelligent automation platform for modern teams. Build faster, scale smarter, and deliver more.
+    <footer className="bg-aura-900 text-aura-100 pt-24 pb-12 px-6 md:px-12">
+      <div className="max-w-[1800px] mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-16 mb-24">
+          <div className="col-span-2">
+            <a href="/" className="text-4xl font-serif tracking-widest mb-8 block">AURA</a>
+            <p className="text-aura-100/50 max-w-xs leading-relaxed text-sm">
+              Elevating the everyday through minimalist design and conscious craftsmanship.
             </p>
-            <div className="flex gap-4">
-              {['twitter', 'github', 'linkedin', 'instagram'].map((social) => (
-                <a key={social} href="#" className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-brand-600 hover:border-brand-600 transition-all">
-                  <Globe size={18} />
-                </a>
-              ))}
-            </div>
           </div>
-
+          
           <div>
-            <h4 className="font-bold text-slate-900 mb-6">Product</h4>
-            <ul className="space-y-4">
-              {['Features', 'Solutions', 'Pricing', 'Updates', 'Security'].map((item) => (
-                <li key={item}><a href="#" className="text-slate-500 hover:text-brand-600 transition-colors">{item}</a></li>
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Shop</h4>
+            <ul className="space-y-4 text-sm text-aura-100/60">
+              {['New Arrivals', 'Best Sellers', 'Collections', 'Accessories'].map(item => (
+                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold text-slate-900 mb-6">Company</h4>
-            <ul className="space-y-4">
-              {['About', 'Careers', 'Blog', 'Press', 'Contact'].map((item) => (
-                <li key={item}><a href="#" className="text-slate-500 hover:text-brand-600 transition-colors">{item}</a></li>
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Support</h4>
+            <ul className="space-y-4 text-sm text-aura-100/60">
+              {['Shipping', 'Returns', 'Size Guide', 'Contact Us'].map(item => (
+                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-bold text-slate-900 mb-6">Legal</h4>
-            <ul className="space-y-4">
-              {['Privacy', 'Terms', 'Cookie Policy', 'Licenses', 'Settings'].map((item) => (
-                <li key={item}><a href="#" className="text-slate-500 hover:text-brand-600 transition-colors">{item}</a></li>
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Company</h4>
+            <ul className="space-y-4 text-sm text-aura-100/60">
+              {['Our Story', 'Journal', 'Sustainability', 'Stockists'].map(item => (
+                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-xs uppercase tracking-widest font-bold mb-8">Follow</h4>
+            <ul className="space-y-4 text-sm text-aura-100/60">
+              {['Instagram', 'Pinterest', 'TikTok', 'Facebook'].map(item => (
+                <li key={item}><a href="#" className="hover:text-white transition-colors">{item}</a></li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
-            © 2024 Nexus AI Inc. All rights reserved.
+        <div className="pt-12 border-t border-aura-100/10 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[10px] uppercase tracking-widest text-aura-100/40">
+            © 2026 AURA Minimalist Fashion. All Rights Reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-slate-400 hover:text-slate-600 text-sm">Status</a>
-            <a href="#" className="text-slate-400 hover:text-slate-600 text-sm">Help Center</a>
-            <a href="#" className="text-slate-400 hover:text-slate-600 text-sm">API Docs</a>
+          <div className="flex gap-8 text-[10px] uppercase tracking-widest text-aura-100/40">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
@@ -587,15 +658,18 @@ const Footer = () => {
 
 export default function App() {
   return (
-    <div className="min-h-screen selection:bg-brand-200 selection:text-brand-900">
+    <div className="min-h-screen selection:bg-aura-900 selection:text-white">
       <Navbar />
       <main>
         <Hero />
-        <Features />
-        <Showcase />
-        <Testimonials />
-        <Pricing />
-        <CTA />
+        <NewArrivals />
+        <Collections />
+        <CategoryShowcase />
+        <EditorialSection />
+        <Materials />
+        <Journal />
+        <SocialFeed />
+        <Newsletter />
       </main>
       <Footer />
     </div>
