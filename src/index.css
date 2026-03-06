@@ -1,38 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", serif;
-  --color-savor-50: #fdfaf6;
-  --color-savor-100: #f7f0e6;
-  --color-savor-200: #eedec8;
-  --color-savor-300: #e0c4a1;
-  --color-savor-600: #8b5e3c;
-  --color-savor-900: #2c1810;
-  --color-accent-sage: #6b705c;
-  --color-accent-terracotta: #b07d62;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Libre Baskerville", serif;
+  --color-folio-paper: #FDFBF7;
+  --color-folio-ink: #1A1A1A;
+  --color-folio-gold: #C5A059;
+  --color-folio-muted: #8E8E8E;
+  --color-folio-border: #E5E1D8;
 }
 
 @layer base {
   body {
-    @apply font-sans bg-savor-50 text-savor-900 antialiased;
+    @apply font-sans bg-folio-paper text-folio-ink antialiased;
   }
   h1, h2, h3, h4 {
     @apply font-serif tracking-tight;
   }
 }
 
-.glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+.book-card-shadow {
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05), -5px -5px 15px rgba(255, 255, 255, 0.8);
 }
 
-.btn-primary {
-  @apply bg-savor-900 text-white px-8 py-4 rounded-full font-bold transition-all hover:bg-savor-600 active:scale-95 shadow-lg shadow-savor-900/20;
+.btn-ink {
+  @apply bg-folio-ink text-white px-8 py-3 rounded-sm font-medium transition-all hover:opacity-90 active:scale-95;
 }
 
-.btn-secondary {
-  @apply bg-white text-savor-900 px-8 py-4 rounded-full font-bold border border-savor-200 transition-all hover:bg-savor-100 active:scale-95;
+.btn-outline {
+  @apply border border-folio-ink text-folio-ink px-8 py-3 rounded-sm font-medium transition-all hover:bg-folio-ink hover:text-white active:scale-95;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -41,4 +38,8 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.paper-texture {
+  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
 }

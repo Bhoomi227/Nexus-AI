@@ -1,5 +1,5 @@
 {
-  "name": "SAVOR - Luxury Gastro-Hotel",
-  "description": "A premium culinary-focused hotel and dining platform. Experience world-class gastronomy and luxury stays with our integrated booking and ordering app.",
-  "requestFramePermissions": ["geolocation"]
+  "name": "FOLIO - Aesthetic Book Shop",
+  "description": "A curated sanctuary for readers. Discover timeless classics, modern masterpieces, and rare editions in a beautifully crafted digital library.",
+  "requestFramePermissions": []
 }
