@@ -1,59 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Syncopate", sans-serif;
-  --color-sonic-black: #050505;
-  --color-sonic-white: #FFFFFF;
-  --color-sonic-accent: #00FF66; /* Electric Green */
-  --color-sonic-gray: #1A1A1A;
-  --color-sonic-muted: #888888;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  
+  --color-brand-50: #fafafa;
+  --color-brand-100: #f4f4f5;
+  --color-brand-200: #e4e4e7;
+  --color-brand-300: #d4d4d8;
+  --color-brand-400: #a1a1aa;
+  --color-brand-500: #71717a;
+  --color-brand-600: #52525b;
+  --color-brand-700: #3f3f46;
+  --color-brand-800: #27272a;
+  --color-brand-900: #18181b;
+  --color-brand-950: #09090b;
+  
+  --color-accent: #ff4e00; /* Vibrant orange for trending feel */
 }
 
 @layer base {
   body {
-    @apply font-sans bg-sonic-black text-sonic-white antialiased selection:bg-sonic-accent selection:text-sonic-black;
+    @apply bg-brand-50 text-brand-950 font-sans antialiased;
   }
-  h1, h2, h3, h4 {
-    @apply font-display tracking-tighter uppercase;
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
   }
-}
-
-.glass-nav {
-  @apply bg-sonic-black/80 backdrop-blur-xl border-b border-white/10;
-}
-
-.btn-sonic {
-  @apply relative px-8 py-4 bg-sonic-accent text-sonic-black uppercase text-xs font-black tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(0,255,102,0.3)];
-}
-
-.btn-sonic-outline {
-  @apply relative px-8 py-4 border-2 border-sonic-white text-sonic-white uppercase text-xs font-black tracking-widest transition-all hover:bg-sonic-white hover:text-sonic-black active:scale-95;
-}
-
-.product-card {
-  @apply bg-sonic-gray border border-white/5 rounded-3xl p-6 transition-all hover:border-sonic-accent/50 hover:shadow-[0_0_30px_rgba(0,255,102,0.1)];
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.text-glow {
-  text-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
-}
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-
-.glow-dot {
-  @apply w-2 h-2 bg-sonic-accent rounded-full;
-  animation: pulse-glow 2s infinite;
 }

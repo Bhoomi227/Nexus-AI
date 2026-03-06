@@ -1,5 +1,5 @@
 {
-  "name": "SONIC - Premium Portable Audio",
-  "description": "Experience sound without limits. High-performance portable speakers designed for adventure, parties, and everyday immersion.",
-  "requestFramePermissions": []
+  "name": "KitchPro - Premium Kitchen Electronics",
+  "description": "A high-end e-commerce platform for professional kitchen electronics and accessories. Discover precision tools for the modern culinary artist.",
+  "requestFramePermissions": ["geolocation"]
 }
