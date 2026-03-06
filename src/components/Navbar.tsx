@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, Search, User, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ShoppingCart, Menu, X, Search, User } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface NavbarProps {
@@ -13,9 +13,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -23,108 +21,90 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount, onOpenCart }) => {
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 lg:px-12',
-        isScrolled ? 'bg-white/80 backdrop-blur-2xl py-4 border-b border-brand-200' : 'bg-transparent py-8'
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-6",
+        isScrolled ? "py-4" : "py-8"
       )}
     >
-      <div className="max-w-[1600px] mx-auto flex items-center justify-between">
+      <div className={cn(
+        "max-w-[1600px] mx-auto transition-all duration-500 flex items-center justify-between px-8 py-4 border",
+        isScrolled 
+          ? "bg-slate-950/80 backdrop-blur-xl border-slate-800 shadow-2xl" 
+          : "bg-transparent border-transparent"
+      )}>
         <div className="flex items-center gap-16">
-          <a href="/" className="text-2xl font-serif font-bold tracking-tighter flex items-center gap-2">
-            <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full" />
+          <a href="/" className="text-2xl font-display font-bold tracking-tighter flex items-center gap-3 group">
+            <div className="w-10 h-10 bg-velocity flex items-center justify-center group-hover:rotate-90 transition-transform duration-500">
+              <div className="w-4 h-4 bg-white" />
             </div>
-            <span className={isScrolled ? 'text-brand-950' : 'text-white'}>KITCHPRO</span>
+            <span className="text-white tracking-[0.2em]">VELOCITY</span>
           </a>
 
-          <div className={cn(
-            "hidden lg:flex items-center gap-10 text-[10px] font-bold uppercase tracking-[0.3em]",
-            isScrolled ? 'text-brand-950' : 'text-white/70'
-          )}>
-            <a href="#" className="hover:text-accent transition-colors">Appliances</a>
-            <a href="#" className="hover:text-accent transition-colors">Smart Tech</a>
-            <a href="#" className="hover:text-accent transition-colors">Tools</a>
-            <a href="#" className="hover:text-accent transition-colors">Journal</a>
+          <div className="hidden lg:flex items-center gap-10">
+            {['Infrastructure', 'Software', 'Hardware', 'Network'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-slate-400 hover:text-velocity transition-colors"
+              >
+                {item}
+              </a>
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-6">
-          <div className={cn(
-            "hidden sm:flex items-center gap-6",
-            isScrolled ? 'text-brand-950' : 'text-white'
-          )}>
-            <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
-            <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
-              <User className="w-5 h-5" />
-            </button>
-          </div>
-          
-          <button 
-            className={cn(
-              "flex items-center gap-3 px-6 py-3 rounded-full transition-all",
-              isScrolled 
-                ? 'bg-brand-950 text-white hover:bg-accent' 
-                : 'bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20'
-            )}
-            onClick={onOpenCart}
-          >
-            <ShoppingCart className="w-4 h-4" />
-            <span className="text-[10px] font-bold uppercase tracking-widest">Cart</span>
-            {cartCount > 0 && (
-              <span className="bg-accent text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
-                {cartCount}
-              </span>
-            )}
+        <div className="flex items-center gap-8">
+          <button className="hidden md:block text-slate-400 hover:text-velocity transition-colors">
+            <Search className="w-5 h-5" />
           </button>
-
-          <button 
-            className={cn(
-              "lg:hidden p-2 rounded-full transition-colors",
-              isScrolled ? 'text-brand-950 hover:bg-brand-100' : 'text-white hover:bg-white/10'
-            )}
-            onClick={() => setIsMobileMenuOpen(true)}
+          <button
+            onClick={onOpenCart}
+            className="relative p-2 text-slate-100 hover:text-velocity transition-colors group"
           >
-            <Menu className="w-6 h-6" />
+            <ShoppingCart className="w-6 h-6" />
+            <AnimatePresence>
+              {cartCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-velocity text-white text-[10px] font-mono font-bold flex items-center justify-center shadow-lg"
+                >
+                  {cartCount}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+          <button
+            className="lg:hidden text-slate-100"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 lg:hidden"
-            />
-            <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 w-[80%] max-w-sm bg-white z-50 lg:hidden p-8 flex flex-col gap-8"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-serif font-bold">Menu</span>
-                <button onClick={() => setIsMobileMenuOpen(false)}>
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-              <div className="flex flex-col gap-6 text-lg font-serif">
-                <a href="#" className="hover:text-brand-600">Appliances</a>
-                <a href="#" className="hover:text-brand-600">Smart Tech</a>
-                <a href="#" className="hover:text-brand-600">Tools</a>
-                <a href="#" className="hover:text-brand-600">Accessories</a>
-                <hr className="border-brand-100" />
-                <a href="#" className="hover:text-brand-600">My Account</a>
-                <a href="#" className="hover:text-brand-600">Support</a>
-              </div>
-            </motion.div>
-          </>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-6 right-6 mt-4 bg-slate-900 border border-slate-800 p-8 lg:hidden shadow-2xl"
+          >
+            <div className="flex flex-col gap-8">
+              {['Infrastructure', 'Software', 'Hardware', 'Network'].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="text-2xl font-display font-bold text-slate-100 hover:text-velocity transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </nav>

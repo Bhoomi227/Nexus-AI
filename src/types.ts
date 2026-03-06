@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  category: 'appliances' | 'tools' | 'smart' | 'accessories';
+  category: 'Hardware' | 'Software' | 'Infrastructure';
   image: string;
   rating: number;
   reviews: number;

@@ -3,68 +3,68 @@ import { Product } from '../types';
 export const products: Product[] = [
   {
     id: '1',
-    name: 'Precision Sous Vide Immersion Circulator',
-    description: 'Professional-grade temperature control for perfect results every time.',
-    price: 199.99,
-    category: 'smart',
-    image: 'https://images.unsplash.com/photo-1614346413047-48139d55fd54?auto=format&fit=crop&q=80&w=800',
+    name: 'V-Core Compute Node',
+    description: 'High-performance edge computing unit for real-time logistics processing.',
+    price: 2499.00,
+    category: 'Hardware',
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&q=80&w=800',
     rating: 4.9,
     reviews: 128,
-    features: ['WiFi Connectivity', '0.1°C Precision', 'Waterproof IPX7']
+    features: ['AI Acceleration', 'IP67 Rated', '5G Ready']
   },
   {
     id: '2',
-    name: 'Smart Multi-Cooker Pro',
-    description: '10-in-1 programmable pressure cooker with built-in scale.',
-    price: 249.50,
-    category: 'appliances',
-    image: 'https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&q=80&w=800',
+    name: 'Velocity OS Enterprise',
+    description: 'The operating system for modern supply chains. Full visibility and AI optimization.',
+    price: 499.00,
+    category: 'Software',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800',
     rating: 4.8,
-    reviews: 342,
-    features: ['OLED Display', 'Built-in Scale', 'Recipe App Sync']
+    reviews: 850,
+    features: ['Predictive Analytics', 'Multi-cloud Sync', 'API First']
   },
   {
     id: '3',
-    name: 'Digital Kitchen Scale Elite',
-    description: 'Ultra-thin tempered glass scale with high-precision sensors.',
-    price: 45.00,
-    category: 'accessories',
-    image: 'https://images.unsplash.com/photo-1594385208974-2e75f9d8ad48?auto=format&fit=crop&q=80&w=800',
-    rating: 4.7,
-    reviews: 89,
-    features: ['Touch Controls', 'Rechargeable', 'Unit Conversion']
+    name: 'Neural Route Optimizer',
+    description: 'Advanced pathfinding algorithm that reduces fuel consumption by up to 30%.',
+    price: 199.00,
+    category: 'Software',
+    image: 'https://images.unsplash.com/photo-1580674271209-40b4b985fabf?auto=format&fit=crop&q=80&w=800',
+    rating: 4.9,
+    reviews: 432,
+    features: ['Dynamic Rerouting', 'Traffic Aware', 'Carbon Tracking']
   },
   {
     id: '4',
-    name: 'Professional Burr Coffee Grinder',
-    description: '40 grind settings for the perfect espresso or pour-over.',
-    price: 159.00,
-    category: 'appliances',
-    image: 'https://images.unsplash.com/photo-1580915411954-282cb1b0d780?auto=format&fit=crop&q=80&w=800',
-    rating: 4.9,
+    name: 'V-Sensor Mesh (Pack of 10)',
+    description: 'Ultra-low power IoT sensors for granular warehouse and asset tracking.',
+    price: 899.00,
+    category: 'Hardware',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
+    rating: 4.7,
     reviews: 215,
-    features: ['Conical Burrs', 'Anti-Static Tech', 'Dose Timer']
+    features: ['5-Year Battery', 'LoRaWAN', 'Encryption']
   },
   {
     id: '5',
-    name: 'Smart Meat Thermometer Duo',
-    description: 'Wireless dual-probe thermometer with 165ft range.',
-    price: 89.99,
-    category: 'smart',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800',
-    rating: 4.6,
-    reviews: 156,
-    features: ['Bluetooth 5.0', 'Cloud Storage', 'Guided Cooking']
+    name: 'Global Transit API',
+    description: 'Unified API for tracking shipments across 500+ global carriers.',
+    price: 299.00,
+    category: 'Software',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+    rating: 4.8,
+    reviews: 1120,
+    features: ['99.99% Uptime', 'Webhooks', 'SDKs Included']
   },
   {
     id: '6',
-    name: 'Electric Milk Frother & Steamer',
-    description: 'Create barista-quality foam for lattes and cappuccinos.',
-    price: 65.00,
-    category: 'accessories',
-    image: 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&q=80&w=800',
-    rating: 4.8,
-    reviews: 274,
-    features: ['Silent Operation', 'Auto Shut-off', 'Non-stick Coating']
+    name: 'V-Gateway Hub',
+    description: 'Centralized communication hub for connecting all edge devices to the cloud.',
+    price: 1200.00,
+    category: 'Hardware',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
+    rating: 4.6,
+    reviews: 84,
+    features: ['Dual-band WiFi', 'Ethernet POE', 'Aluminum Chassis']
   }
 ];

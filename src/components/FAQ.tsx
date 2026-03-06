@@ -4,20 +4,20 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What is the warranty on KitchPro electronics?",
-    answer: "All our professional-grade electronics come with a standard 2-year international warranty. Our Pro Series items often include a lifetime warranty on core components like motors and heating elements."
+    question: "How does the Neural Route Optimizer handle real-time traffic?",
+    answer: "Our optimizer uses a distributed neural network that processes live data from millions of nodes. It predicts congestion before it happens and reroutes assets with sub-second latency."
   },
   {
-    question: "Do you offer international shipping?",
-    answer: "Yes, we ship to over 50 countries worldwide. Shipping times vary by location, but typically range from 3-7 business days for express delivery."
+    question: "What is the deployment time for V-Core infrastructure?",
+    answer: "Standard node deployment typically takes 48-72 hours. Enterprise-scale infrastructure can be fully operational within 14 business days, including hardware integration and API mapping."
   },
   {
-    question: "Can I return a product if I'm not satisfied?",
-    answer: "We offer a 30-day 'Culinary Satisfaction' guarantee. If you're not completely happy with your purchase, you can return it for a full refund, no questions asked."
+    question: "Does Velocity support multi-modal logistics?",
+    answer: "Yes. Our platform is designed for seamless orchestration across sea, air, rail, and road transport, providing a unified source of truth for your entire supply chain."
   },
   {
-    question: "How do I clean and maintain my Smart-Grind Pro?",
-    answer: "Maintenance is simple. The burrs are self-cleaning to an extent, but we recommend a deep clean every 3 months using our specialized cleaning tablets."
+    question: "How secure is the data transmitted between nodes?",
+    answer: "All data is encrypted using post-quantum cryptographic standards. Each V-Core node features a dedicated secure element for hardware-level key management."
   }
 ];
 
@@ -25,17 +25,16 @@ export const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-32 px-6 bg-brand-50">
+    <section className="py-40 px-6 bg-slate-950 border-b border-slate-900">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-20">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="w-8 h-px bg-accent" />
-            <span className="text-accent uppercase tracking-[0.4em] text-[10px] font-bold">Support Center</span>
-            <span className="w-8 h-px bg-accent" />
+        <div className="text-center mb-32">
+          <div className="inline-flex items-center gap-3 mb-8 px-4 py-2 brutal-border bg-slate-900">
+            <span className="w-2 h-2 bg-velocity" />
+            <span className="text-velocity uppercase tracking-[0.4em] text-[10px] font-mono font-bold">Technical Support</span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-serif tracking-tighter">
-            COMMON <br />
-            <span className="italic font-light">QUESTIONS</span>
+          <h2 className="text-6xl md:text-9xl font-display font-bold tracking-tighter text-white leading-[0.85]">
+            SYSTEM <br />
+            <span className="text-velocity">QUERY.</span>
           </h2>
         </div>
 
@@ -43,20 +42,20 @@ export const FAQ: React.FC = () => {
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="border-b border-brand-200 last:border-0"
+              className="border-b border-slate-900 last:border-0"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full py-8 flex items-center justify-between text-left group"
+                className="w-full py-10 flex items-center justify-between text-left group"
               >
-                <span className="text-xl font-serif group-hover:text-accent transition-colors">
+                <span className="text-2xl font-display font-bold text-slate-100 group-hover:text-velocity transition-colors">
                   {faq.question}
                 </span>
-                <div className="w-8 h-8 rounded-full border border-brand-200 flex items-center justify-center group-hover:border-accent transition-colors">
+                <div className="w-10 h-10 brutal-border flex items-center justify-center group-hover:border-velocity transition-colors">
                   {openIndex === i ? (
-                    <Minus className="w-4 h-4 text-accent" />
+                    <Minus className="w-4 h-4 text-velocity" />
                   ) : (
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-4 h-4 text-slate-500" />
                   )}
                 </div>
               </button>
@@ -69,7 +68,7 @@ export const FAQ: React.FC = () => {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <p className="pb-8 text-brand-500 font-light leading-relaxed max-w-2xl">
+                    <p className="pb-10 text-slate-400 font-light leading-relaxed max-w-2xl">
                       {faq.answer}
                     </p>
                   </motion.div>

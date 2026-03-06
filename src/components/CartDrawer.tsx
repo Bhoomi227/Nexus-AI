@@ -29,91 +29,95 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[60]"
           />
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-brand-50 z-[70] shadow-2xl flex flex-col"
+            className="fixed top-0 right-0 bottom-0 w-full max-w-md bg-slate-950 z-[70] shadow-2xl flex flex-col border-l border-slate-800"
           >
-            <div className="p-6 border-bottom border-brand-200 flex items-center justify-between bg-white">
-              <div className="flex items-center gap-3">
-                <ShoppingBag className="w-6 h-6 text-brand-600" />
-                <h2 className="text-2xl font-serif font-bold">Your Cart</h2>
-                <span className="bg-brand-100 text-brand-600 text-xs font-bold px-2 py-1 rounded-full">
-                  {items.length}
-                </span>
+            <div className="p-8 border-b border-slate-800 flex items-center justify-between bg-slate-900">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-velocity flex items-center justify-center">
+                  <ShoppingBag className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-display font-bold text-white uppercase tracking-wider">Deployment Queue</h2>
+                  <p className="text-[10px] font-mono text-velocity uppercase tracking-widest mt-1">
+                    {items.length} Active Modules
+                  </p>
+                </div>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-brand-100 rounded-full transition-colors"
+                className="p-2 hover:bg-slate-800 text-slate-400 transition-colors"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="flex-1 overflow-y-auto p-8 space-y-8">
               {items.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
-                  <div className="w-20 h-20 bg-brand-100 rounded-full flex items-center justify-center">
-                    <ShoppingBag className="w-10 h-10 text-brand-300" />
+                <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
+                  <div className="w-24 h-24 brutal-border bg-slate-900 flex items-center justify-center">
+                    <ShoppingBag className="w-10 h-10 text-slate-700" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-serif font-bold mb-2">Cart is empty</h3>
-                    <p className="text-brand-500 text-sm">Looks like you haven't added anything yet.</p>
+                    <h3 className="text-xl font-display font-bold text-white mb-2">Queue is Empty</h3>
+                    <p className="text-slate-500 text-sm font-light">No modules selected for deployment.</p>
                   </div>
                   <button
                     onClick={onClose}
-                    className="bg-brand-950 text-white px-8 py-3 rounded-full font-bold hover:bg-brand-800 transition-colors"
+                    className="bg-velocity text-white px-10 py-4 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-slate-950 transition-colors"
                   >
-                    Start Shopping
+                    Browse Infrastructure
                   </button>
                 </div>
               ) : (
                 items.map((item) => (
-                  <div key={item.id} className="flex gap-4 group">
-                    <div className="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 border border-brand-200">
+                  <div key={item.id} className="flex gap-6 group">
+                    <div className="w-24 h-24 brutal-border overflow-hidden flex-shrink-0 bg-slate-900">
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                         referrerPolicy="no-referrer"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
                         <div className="flex justify-between items-start">
-                          <h4 className="font-serif font-bold text-lg leading-tight">{item.name}</h4>
+                          <h4 className="font-display font-bold text-lg text-white leading-tight">{item.name}</h4>
                           <button 
                             onClick={() => onRemove(item.id)}
-                            className="text-brand-300 hover:text-red-500 transition-colors"
+                            className="text-slate-600 hover:text-velocity transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
-                        <p className="text-brand-500 text-xs mt-1 uppercase tracking-widest">{item.category}</p>
+                        <p className="text-velocity text-[8px] font-mono mt-2 uppercase tracking-[0.2em]">{item.category}</p>
                       </div>
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center border border-brand-200 rounded-full px-2 py-1">
+                      <div className="flex items-center justify-between mt-4">
+                        <div className="flex items-center brutal-border bg-slate-900 px-3 py-1">
                           <button
                             onClick={() => onUpdateQuantity(item.id, -1)}
-                            className="p-1 hover:text-brand-600 disabled:opacity-30"
+                            className="p-1 text-slate-400 hover:text-velocity disabled:opacity-30"
                             disabled={item.quantity <= 1}
                           >
                             <Minus className="w-3 h-3" />
                           </button>
-                          <span className="w-8 text-center text-sm font-bold">{item.quantity}</span>
+                          <span className="w-10 text-center text-xs font-mono font-bold text-white">{item.quantity}</span>
                           <button
                             onClick={() => onUpdateQuantity(item.id, 1)}
-                            className="p-1 hover:text-brand-600"
+                            className="p-1 text-slate-400 hover:text-velocity"
                           >
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>
-                        <span className="font-bold text-brand-950">
-                          ${(item.price * item.quantity).toFixed(2)}
+                        <span className="font-mono font-bold text-white">
+                          ${(item.price * item.quantity).toLocaleString()}
                         </span>
                       </div>
                     </div>
@@ -123,21 +127,23 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </div>
 
             {items.length > 0 && (
-              <div className="p-6 bg-white border-t border-brand-200 space-y-4">
-                <div className="flex justify-between items-center text-sm text-brand-500">
-                  <span>Subtotal</span>
-                  <span className="font-bold text-brand-950">${subtotal.toFixed(2)}</span>
+              <div className="p-8 bg-slate-900 border-t border-slate-800 space-y-6">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                    <span>Subtotal</span>
+                    <span className="font-bold text-white">${subtotal.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                    <span>Deployment Fee</span>
+                    <span className="text-velocity font-bold">Calculated at checkout</span>
+                  </div>
                 </div>
-                <div className="flex justify-between items-center text-sm text-brand-500">
-                  <span>Shipping</span>
-                  <span className="text-brand-600 font-bold uppercase tracking-widest text-[10px]">Calculated at checkout</span>
+                <div className="pt-6 border-t border-slate-800 flex justify-between items-center">
+                  <span className="text-xl font-display font-bold text-white uppercase tracking-wider">Total Est.</span>
+                  <span className="text-3xl font-display font-bold text-white">${subtotal.toLocaleString()}</span>
                 </div>
-                <div className="pt-4 border-t border-brand-100 flex justify-between items-center">
-                  <span className="text-lg font-serif font-bold">Total</span>
-                  <span className="text-2xl font-bold text-brand-950">${subtotal.toFixed(2)}</span>
-                </div>
-                <button className="w-full bg-brand-950 text-white py-4 rounded-full font-bold text-lg hover:bg-brand-800 transition-all shadow-lg hover:shadow-xl active:scale-[0.98]">
-                  Checkout Now
+                <button className="w-full bg-velocity text-white py-6 font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-white hover:text-slate-950 transition-all shadow-lg active:scale-[0.98]">
+                  Confirm Deployment
                 </button>
               </div>
             )}
