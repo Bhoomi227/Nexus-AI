@@ -1,50 +1,48 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
-  Play, 
-  Wand2, 
-  Sparkles, 
-  Video, 
+  Puzzle, 
+  Download, 
+  Star, 
+  Trophy, 
+  Brain, 
   Zap, 
-  Layers, 
-  ArrowRight,
-  CheckCircle2,
   Menu,
-  X
+  X,
+  Smartphone,
+  Gamepad2
 } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 glass-panel rounded-none border-x-0 border-t-0 border-b border-white/10">
+    <nav className="fixed top-0 w-full z-50 bg-bg-main/90 backdrop-blur-md border-b-4 border-text-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
-              <Play className="w-4 h-4 text-white ml-0.5" fill="currentColor" />
+        <div className="flex items-center justify-between h-20">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-primary border-4 border-text-dark flex items-center justify-center transform -rotate-6">
+              <Puzzle className="w-6 h-6 text-white" />
             </div>
-            <span className="font-display font-bold text-xl tracking-tight">Lumina</span>
+            <span className="font-display font-bold text-2xl tracking-tight text-text-dark">ChromaShift</span>
           </div>
           
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm text-text-muted hover:text-white transition-colors">Features</a>
-            <a href="#showcase" className="text-sm text-text-muted hover:text-white transition-colors">Showcase</a>
-            <a href="#pricing" className="text-sm text-text-muted hover:text-white transition-colors">Pricing</a>
+          <div className="hidden md:flex items-center gap-8 font-bold">
+            <a href="#features" className="text-text-dark hover:text-primary transition-colors">Features</a>
+            <a href="#reviews" className="text-text-dark hover:text-secondary transition-colors">Reviews</a>
+            <a href="#trailer" className="text-text-dark hover:text-accent transition-colors">Trailer</a>
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
-            <button className="text-sm font-medium text-text-muted hover:text-white transition-colors">
-              Log in
-            </button>
-            <button className="px-4 py-2 text-sm font-medium bg-white text-black rounded-full hover:bg-gray-200 transition-colors">
-              Get Started
+          <div className="hidden md:flex items-center">
+            <button className="btn-primary px-6 py-2 text-base">
+              <Download className="w-5 h-5" />
+              Get Game
             </button>
           </div>
 
           <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-text-muted hover:text-white">
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <button onClick={() => setIsOpen(!isOpen)} className="text-text-dark">
+              {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
             </button>
           </div>
         </div>
@@ -52,19 +50,15 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden glass-panel border-x-0 border-b-0">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#features" className="block px-3 py-2 text-base font-medium text-text-muted hover:text-white">Features</a>
-            <a href="#showcase" className="block px-3 py-2 text-base font-medium text-text-muted hover:text-white">Showcase</a>
-            <a href="#pricing" className="block px-3 py-2 text-base font-medium text-text-muted hover:text-white">Pricing</a>
-            <div className="mt-4 flex flex-col gap-2 px-3">
-              <button className="w-full px-4 py-2 text-sm font-medium border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
-                Log in
-              </button>
-              <button className="w-full px-4 py-2 text-sm font-medium bg-white text-black rounded-lg hover:bg-gray-200 transition-colors">
-                Get Started
-              </button>
-            </div>
+        <div className="md:hidden bg-white border-b-4 border-text-dark">
+          <div className="px-4 pt-4 pb-6 space-y-4">
+            <a href="#features" className="block text-xl font-bold text-text-dark">Features</a>
+            <a href="#reviews" className="block text-xl font-bold text-text-dark">Reviews</a>
+            <a href="#trailer" className="block text-xl font-bold text-text-dark">Trailer</a>
+            <button className="btn-primary w-full mt-4">
+              <Download className="w-5 h-5" />
+              Download Now
+            </button>
           </div>
         </div>
       )}
@@ -75,62 +69,90 @@ const Navbar = () => {
 const Hero = () => {
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-primary/20 rounded-full blur-[120px] opacity-50 pointer-events-none" />
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-dots pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel mb-8 border-accent-primary/30"
-        >
-          <Sparkles className="w-4 h-4 text-accent-primary" />
-          <span className="text-sm font-medium text-accent-primary">Lumina AI 2.0 is now live</span>
-        </motion.div>
+      {/* Floating Shapes */}
+      <div className="absolute top-40 left-10 w-20 h-20 bg-accent border-4 border-text-dark rounded-2xl animate-float opacity-80 rotate-12" />
+      <div className="absolute top-60 right-20 w-16 h-16 bg-primary border-4 border-text-dark rounded-full animate-float-delayed opacity-80" />
+      <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-secondary border-4 border-text-dark rounded-3xl animate-float opacity-80 -rotate-12" />
 
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6"
-        >
-          Turn text into <br className="hidden md:block" />
-          <span className="text-gradient">stunning videos</span>
-        </motion.h1>
-
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10"
-        >
-          The most advanced AI video generator for creators and marketing teams. 
-          Type your prompt and watch cinematic visuals come to life in seconds.
-        </motion.p>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="max-w-3xl mx-auto"
-        >
-          <div className="glass-panel p-2 flex flex-col sm:flex-row gap-2 glow-effect">
-            <div className="relative flex-grow">
-              <Wand2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
-              <input 
-                type="text" 
-                placeholder="A cinematic shot of a neon city in the rain, 4k resolution..." 
-                className="w-full bg-transparent border-none text-white placeholder-text-muted focus:ring-0 py-4 pl-12 pr-4 outline-none"
-              />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, type: "spring" }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border-4 border-text-dark mb-6 transform -rotate-2">
+              <Star className="w-5 h-5 text-accent fill-accent" />
+              <span className="font-bold text-text-dark">#1 Puzzle Game of 2026</span>
             </div>
-            <button className="px-8 py-4 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
-              Generate Video
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-          <p className="text-sm text-text-muted mt-4">No credit card required. Free 14-day trial.</p>
-        </motion.div>
+
+            <h1 className="text-5xl md:text-7xl font-bold text-text-dark mb-6 leading-tight">
+              Match. Merge. <br/>
+              <span className="text-primary relative inline-block">
+                Master.
+                <svg className="absolute w-full h-4 -bottom-2 left-0 text-accent" viewBox="0 0 100 20" preserveAspectRatio="none">
+                  <path d="M0 10 Q 50 20 100 10" stroke="currentColor" strokeWidth="8" fill="none" />
+                </svg>
+              </span>
+            </h1>
+
+            <p className="text-xl md:text-2xl text-text-dark/80 mb-10 font-medium max-w-lg">
+              Shift colors, solve mind-bending puzzles, and save the realm in the most addictive game of the year.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="btn-primary">
+                <Smartphone className="w-6 h-6" />
+                App Store
+              </button>
+              <button className="btn-secondary">
+                <Gamepad2 className="w-6 h-6" />
+                Google Play
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Phone Mockup */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, type: "spring", delay: 0.2 }}
+            className="relative mx-auto lg:ml-auto w-full max-w-[320px]"
+          >
+            <div className="relative w-full aspect-[1/2] bg-text-dark rounded-[3rem] border-8 border-text-dark shadow-2xl overflow-hidden animate-float">
+              {/* Screen Content - Placeholder for gameplay */}
+              <div className="absolute inset-0 bg-secondary">
+                <img 
+                  src="https://picsum.photos/seed/puzzle-game/400/800" 
+                  alt="Gameplay Preview" 
+                  className="w-full h-full object-cover opacity-90 mix-blend-overlay"
+                  referrerPolicy="no-referrer"
+                />
+                {/* Fake UI Overlay */}
+                <div className="absolute top-6 left-0 w-full px-6 flex justify-between items-center">
+                  <div className="bg-white/90 px-3 py-1 rounded-full font-bold text-sm">Score: 14,020</div>
+                  <div className="bg-white/90 px-3 py-1 rounded-full font-bold text-sm">Lvl 42</div>
+                </div>
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-4/5 h-1/2 grid grid-cols-4 gap-2 p-2 bg-white/20 rounded-2xl backdrop-blur-sm">
+                  {/* Fake puzzle grid */}
+                  {Array.from({ length: 16 }).map((_, i) => (
+                    <div key={i} className={`rounded-lg border-2 border-text-dark/20 ${
+                      i % 3 === 0 ? 'bg-primary' : i % 2 === 0 ? 'bg-accent' : 'bg-secondary'
+                    }`} />
+                  ))}
+                </div>
+              </div>
+            </div>
+            {/* Decorative elements behind phone */}
+            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-accent rounded-full blur-[80px] opacity-40" />
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );
@@ -139,45 +161,51 @@ const Hero = () => {
 const Features = () => {
   const features = [
     {
-      icon: <Video className="w-6 h-6 text-accent-primary" />,
-      title: "Text to Cinematic Video",
-      description: "Our proprietary diffusion model understands complex prompts to generate photorealistic, 4K video clips."
+      icon: <Brain className="w-10 h-10 text-white" />,
+      title: "Brain-Bending Levels",
+      description: "Over 500 handcrafted puzzles that will test your logic and spatial reasoning.",
+      color: "bg-primary"
     },
     {
-      icon: <Zap className="w-6 h-6 text-accent-secondary" />,
-      title: "Real-time Rendering",
-      description: "Stop waiting hours for renders. Lumina generates 10-second clips in under 30 seconds."
+      icon: <Zap className="w-10 h-10 text-white" />,
+      title: "Daily Challenges",
+      description: "New unique puzzles every day. Compete with friends for the fastest solve time.",
+      color: "bg-secondary"
     },
     {
-      icon: <Layers className="w-6 h-6 text-accent-tertiary" />,
-      title: "Multi-style Control",
-      description: "Switch between cinematic, anime, 3D render, and illustrative styles with a single click."
+      icon: <Trophy className="w-10 h-10 text-text-dark" />,
+      title: "Global Leaderboards",
+      description: "Climb the ranks and show the world who the true ChromaShift master is.",
+      color: "bg-accent"
     }
   ];
 
   return (
-    <section id="features" className="py-24 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="py-24 relative z-10 bg-white border-y-4 border-text-dark">
+      <div className="absolute inset-0 bg-dots pointer-events-none opacity-10" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">Limitless creativity, <br />zero technical skills.</h2>
-          <p className="text-text-muted text-lg max-w-2xl mx-auto">Everything you need to scale your video production without scaling your budget.</p>
+          <h2 className="text-4xl md:text-6xl font-bold mb-6">Why you'll love it</h2>
+          <p className="text-xl text-text-dark/70 max-w-2xl mx-auto font-medium">
+            Simple to learn, impossible to master. Discover the mechanics that make ChromaShift so addictive.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div 
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-panel p-8 hover:bg-white/[0.05] transition-colors"
+              className="fun-card group"
             >
-              <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6">
+              <div className={`w-20 h-20 rounded-2xl ${feature.color} border-4 border-text-dark flex items-center justify-center mb-6 transform group-hover:rotate-12 transition-transform`}>
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-              <p className="text-text-muted leading-relaxed">{feature.description}</p>
+              <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
+              <p className="text-lg text-text-dark/80 font-medium leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
@@ -186,50 +214,42 @@ const Features = () => {
   );
 };
 
-const Showcase = () => {
-  const videos = [
-    { url: "https://picsum.photos/seed/cyberpunk/800/600", title: "Cyberpunk Cityscape" },
-    { url: "https://picsum.photos/seed/nature/800/600", title: "Macro Nature" },
-    { url: "https://picsum.photos/seed/space/800/600", title: "Deep Space Nebula" },
-    { url: "https://picsum.photos/seed/abstract/800/600", title: "Abstract Fluid Dynamics" }
-  ];
-
+const Reviews = () => {
   return (
-    <section id="showcase" className="py-24 relative z-10 bg-black/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">Made with Lumina</h2>
-            <p className="text-text-muted text-lg max-w-xl">Explore what our community is creating. All videos generated entirely from text prompts.</p>
-          </div>
-          <button className="px-6 py-3 glass-panel hover:bg-white/10 transition-colors flex items-center gap-2">
-            View Gallery <ArrowRight className="w-4 h-4" />
-          </button>
+    <section id="reviews" className="py-24 relative bg-secondary overflow-hidden border-b-4 border-text-dark">
+      {/* Decorative background shapes */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full mix-blend-multiply opacity-50 blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent rounded-full mix-blend-multiply opacity-50 blur-3xl" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6" style={{ textShadow: '4px 4px 0 #2D3047' }}>
+            Players are obsessed
+          </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
-          {videos.map((video, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            { name: "PuzzleMaster99", text: "I downloaded this to kill 5 minutes and ended up playing for 3 hours. Send help.", rating: 5 },
+            { name: "Sarah J.", text: "The color shifting mechanic is brilliant. Best puzzle game I've played since Tetris.", rating: 5 },
+            { name: "CasualGamer", text: "Level 42 is driving me crazy but I can't stop trying. The animations are so satisfying!", rating: 5 }
+          ].map((review, i) => (
             <motion.div 
-              key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative aspect-video rounded-2xl overflow-hidden bg-base-surface cursor-pointer"
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="bg-white border-4 border-text-dark rounded-3xl p-8"
+              style={{ boxShadow: '6px 6px 0 0 #2D3047' }}
             >
-              <img 
-                src={video.url} 
-                alt={video.title} 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <Play className="w-5 h-5 text-white ml-1" fill="currentColor" />
-                </div>
-                <p className="text-sm font-medium text-accent-tertiary mb-1">Prompt</p>
-                <p className="text-white font-medium">"{video.title}"</p>
+              <div className="flex gap-1 mb-4">
+                {[...Array(review.rating)].map((_, j) => (
+                  <Star key={j} className="w-6 h-6 text-accent fill-accent" />
+                ))}
               </div>
+              <p className="text-xl font-bold mb-6">"{review.text}"</p>
+              <p className="text-text-dark/60 font-bold uppercase tracking-wider">{review.name}</p>
             </motion.div>
           ))}
         </div>
@@ -238,61 +258,33 @@ const Showcase = () => {
   );
 };
 
-const Pricing = () => {
+const CTA = () => {
   return (
-    <section id="pricing" className="py-24 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">Simple, transparent pricing</h2>
-          <p className="text-text-muted text-lg max-w-2xl mx-auto">Start for free, upgrade when you need more power.</p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Starter Plan */}
-          <div className="glass-panel p-8 flex flex-col">
-            <h3 className="text-2xl font-bold mb-2">Creator</h3>
-            <p className="text-text-muted mb-6">Perfect for individuals and hobbyists.</p>
-            <div className="mb-8">
-              <span className="text-5xl font-bold">$19</span>
-              <span className="text-text-muted">/month</span>
-            </div>
-            <ul className="space-y-4 mb-8 flex-grow">
-              {['100 video generations/mo', '720p resolution', 'Standard rendering speed', 'Community support'].map((feature, i) => (
-                <li key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent-primary" />
-                  <span className="text-gray-300">{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <button className="w-full py-4 glass-panel hover:bg-white/10 transition-colors font-medium">
-              Start Free Trial
+    <section className="py-32 relative bg-bg-main overflow-hidden">
+      <div className="absolute inset-0 bg-dots pointer-events-none" />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-accent border-4 border-text-dark rounded-[3rem] p-12 md:p-20"
+          style={{ boxShadow: '12px 12px 0 0 #2D3047' }}
+        >
+          <h2 className="text-4xl md:text-6xl font-bold mb-6">Ready to test your brain?</h2>
+          <p className="text-2xl font-medium mb-10 max-w-2xl mx-auto">
+            Join over 2 million players worldwide. Free to download, impossible to put down.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+            <button className="btn-primary text-xl px-10 py-5">
+              <Smartphone className="w-8 h-8" />
+              App Store
+            </button>
+            <button className="btn-secondary text-xl px-10 py-5">
+              <Gamepad2 className="w-8 h-8" />
+              Google Play
             </button>
           </div>
-
-          {/* Pro Plan */}
-          <div className="glass-panel p-8 flex flex-col relative overflow-hidden border-accent-primary/50 glow-effect">
-            <div className="absolute top-0 right-0 bg-accent-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-              MOST POPULAR
-            </div>
-            <h3 className="text-2xl font-bold mb-2">Pro</h3>
-            <p className="text-text-muted mb-6">For professionals and marketing teams.</p>
-            <div className="mb-8">
-              <span className="text-5xl font-bold">$49</span>
-              <span className="text-text-muted">/month</span>
-            </div>
-            <ul className="space-y-4 mb-8 flex-grow">
-              {['Unlimited video generations', '4K resolution', 'Priority rendering speed', 'Commercial rights', 'API access'].map((feature, i) => (
-                <li key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-accent-secondary" />
-                  <span className="text-gray-300">{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <button className="w-full py-4 bg-white text-black hover:bg-gray-200 transition-colors font-medium rounded-xl">
-              Get Pro
-            </button>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -300,45 +292,25 @@ const Pricing = () => {
 
 const Footer = () => {
   return (
-    <footer className="border-t border-white/10 bg-black/50 pt-16 pb-8 relative z-10">
+    <footer className="bg-text-dark text-white py-12 border-t-8 border-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-6 h-6 rounded bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
-                <Play className="w-3 h-3 text-white ml-0.5" fill="currentColor" />
-              </div>
-              <span className="font-display font-bold text-lg tracking-tight">Lumina</span>
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+              <Puzzle className="w-6 h-6 text-white" />
             </div>
-            <p className="text-text-muted max-w-sm">
-              Empowering creators to tell their stories through the magic of AI video generation.
-            </p>
+            <span className="font-display font-bold text-2xl tracking-tight">ChromaShift</span>
           </div>
-          <div>
-            <h4 className="font-semibold mb-4">Product</h4>
-            <ul className="space-y-2 text-text-muted text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Showcase</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">API</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-text-muted text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-            </ul>
+          
+          <div className="flex gap-8 font-bold text-white/70">
+            <a href="#" className="hover:text-accent transition-colors">Support</a>
+            <a href="#" className="hover:text-accent transition-colors">Privacy</a>
+            <a href="#" className="hover:text-accent transition-colors">Terms</a>
+            <a href="#" className="hover:text-accent transition-colors">Press Kit</a>
           </div>
         </div>
-        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-muted">
-          <p>© 2026 Lumina AI. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-          </div>
+        <div className="mt-12 text-center text-white/40 font-medium">
+          <p>© 2026 ChromaShift Games. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -347,22 +319,18 @@ const Footer = () => {
 
 function App() {
   return (
-    <div className="min-h-screen bg-base-bg text-text-main font-sans selection:bg-accent-primary selection:text-white relative">
-      {/* Global Background Grid */}
-      <div className="fixed inset-0 bg-grid-pattern mask-radial pointer-events-none opacity-40" />
-      
+    <div className="min-h-screen bg-bg-main text-text-dark font-sans selection:bg-primary selection:text-white">
       <Navbar />
-      
       <main>
         <Hero />
         <Features />
-        <Showcase />
-        <Pricing />
+        <Reviews />
+        <CTA />
       </main>
-
       <Footer />
     </div>
   );
 }
 
 export default App;
+
