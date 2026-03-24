@@ -1,47 +1,50 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { 
-  Puzzle, 
-  Download, 
+  Bot, 
+  Palette, 
+  Cpu, 
+  Wrench, 
   Star, 
-  Trophy, 
-  Brain, 
-  Zap, 
-  Menu,
-  X,
-  Smartphone,
-  Gamepad2
+  Users, 
+  Calendar, 
+  ArrowRight, 
+  CheckCircle2, 
+  Menu, 
+  X, 
+  Rocket, 
+  Shield, 
+  Lightbulb 
 } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-bg-main/90 backdrop-blur-md border-b-4 border-text-dark">
+    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-lg border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-primary border-4 border-text-dark flex items-center justify-center transform -rotate-6">
-              <Puzzle className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
+              <Bot className="w-7 h-7 text-white" />
             </div>
-            <span className="font-display font-bold text-2xl tracking-tight text-text-dark">ChromaShift</span>
+            <span className="font-display font-bold text-2xl tracking-tight text-text-dark">TinkerBots</span>
           </div>
           
-          <div className="hidden md:flex items-center gap-8 font-bold">
-            <a href="#features" className="text-text-dark hover:text-primary transition-colors">Features</a>
-            <a href="#reviews" className="text-text-dark hover:text-secondary transition-colors">Reviews</a>
-            <a href="#trailer" className="text-text-dark hover:text-accent transition-colors">Trailer</a>
+          <div className="hidden md:flex items-center gap-8 font-bold text-slate-600">
+            <a href="#programs" className="hover:text-primary transition-colors">Programs</a>
+            <a href="#benefits" className="hover:text-secondary transition-colors">Why Us</a>
+            <a href="#reviews" className="hover:text-accent transition-colors">Parents Say</a>
           </div>
 
           <div className="hidden md:flex items-center">
             <button className="btn-primary px-6 py-2 text-base">
-              <Download className="w-5 h-5" />
-              Get Game
+              Enroll Now
             </button>
           </div>
 
           <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-text-dark">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-slate-600">
               {isOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
             </button>
           </div>
@@ -50,14 +53,13 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-white border-b-4 border-text-dark">
+        <div className="md:hidden bg-white border-b border-slate-200">
           <div className="px-4 pt-4 pb-6 space-y-4">
-            <a href="#features" className="block text-xl font-bold text-text-dark">Features</a>
-            <a href="#reviews" className="block text-xl font-bold text-text-dark">Reviews</a>
-            <a href="#trailer" className="block text-xl font-bold text-text-dark">Trailer</a>
+            <a href="#programs" className="block text-xl font-bold text-slate-600">Programs</a>
+            <a href="#benefits" className="block text-xl font-bold text-slate-600">Why Us</a>
+            <a href="#reviews" className="block text-xl font-bold text-slate-600">Parents Say</a>
             <button className="btn-primary w-full mt-4">
-              <Download className="w-5 h-5" />
-              Download Now
+              Enroll Now
             </button>
           </div>
         </div>
@@ -69,14 +71,8 @@ const Navbar = () => {
 const Hero = () => {
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-dots pointer-events-none" />
+      <div className="absolute inset-0 bg-grid-soft pointer-events-none" />
       
-      {/* Floating Shapes */}
-      <div className="absolute top-40 left-10 w-20 h-20 bg-accent border-4 border-text-dark rounded-2xl animate-float opacity-80 rotate-12" />
-      <div className="absolute top-60 right-20 w-16 h-16 bg-primary border-4 border-text-dark rounded-full animate-float-delayed opacity-80" />
-      <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-secondary border-4 border-text-dark rounded-3xl animate-float opacity-80 -rotate-12" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           
@@ -86,70 +82,72 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, type: "spring" }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border-4 border-text-dark mb-6 transform -rotate-2">
-              <Star className="w-5 h-5 text-accent fill-accent" />
-              <span className="font-bold text-text-dark">#1 Puzzle Game of 2026</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 mb-6 text-primary font-bold">
+              <Star className="w-5 h-5 fill-primary" />
+              <span>Fall 2026 Registration Now Open!</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-text-dark mb-6 leading-tight">
-              Match. Merge. <br/>
+              Where <span className="text-secondary">Art</span> Meets <br/>
               <span className="text-primary relative inline-block">
-                Master.
-                <svg className="absolute w-full h-4 -bottom-2 left-0 text-accent" viewBox="0 0 100 20" preserveAspectRatio="none">
-                  <path d="M0 10 Q 50 20 100 10" stroke="currentColor" strokeWidth="8" fill="none" />
+                Engineering.
+                <svg className="absolute w-full h-4 -bottom-1 left-0 text-accent opacity-50" viewBox="0 0 100 20" preserveAspectRatio="none">
+                  <path d="M0 10 Q 50 20 100 10" stroke="currentColor" strokeWidth="8" strokeLinecap="round" fill="none" />
                 </svg>
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-text-dark/80 mb-10 font-medium max-w-lg">
-              Shift colors, solve mind-bending puzzles, and save the realm in the most addictive game of the year.
+            <p className="text-xl text-slate-600 mb-10 font-medium max-w-lg leading-relaxed">
+              Hands-on robotics and crafts classes for kids ages 4-12. We blend creativity with STEM to build the innovators of tomorrow.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="btn-primary">
-                <Smartphone className="w-6 h-6" />
-                App Store
+                Explore Classes
+                <ArrowRight className="w-5 h-5" />
               </button>
-              <button className="btn-secondary">
-                <Gamepad2 className="w-6 h-6" />
-                Google Play
+              <button className="btn-secondary bg-white text-slate-700 border-2 border-slate-200 shadow-none hover:bg-slate-50 hover:shadow-lg">
+                <Calendar className="w-5 h-5" />
+                View Schedule
               </button>
+            </div>
+            
+            <div className="mt-8 flex items-center gap-4 text-sm font-bold text-slate-500">
+              <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map((i) => (
+                  <img key={i} src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="Parent" className="w-8 h-8 rounded-full border-2 border-white" />
+                ))}
+              </div>
+              <p>Trusted by 500+ local parents</p>
             </div>
           </motion.div>
 
-          {/* Phone Mockup */}
+          {/* Image/Visual Content */}
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, type: "spring", delay: 0.2 }}
-            className="relative mx-auto lg:ml-auto w-full max-w-[320px]"
+            className="relative mx-auto lg:ml-auto w-full max-w-lg"
           >
-            <div className="relative w-full aspect-[1/2] bg-text-dark rounded-[3rem] border-8 border-text-dark shadow-2xl overflow-hidden animate-float">
-              {/* Screen Content - Placeholder for gameplay */}
-              <div className="absolute inset-0 bg-secondary">
-                <img 
-                  src="https://picsum.photos/seed/puzzle-game/400/800" 
-                  alt="Gameplay Preview" 
-                  className="w-full h-full object-cover opacity-90 mix-blend-overlay"
-                  referrerPolicy="no-referrer"
-                />
-                {/* Fake UI Overlay */}
-                <div className="absolute top-6 left-0 w-full px-6 flex justify-between items-center">
-                  <div className="bg-white/90 px-3 py-1 rounded-full font-bold text-sm">Score: 14,020</div>
-                  <div className="bg-white/90 px-3 py-1 rounded-full font-bold text-sm">Lvl 42</div>
-                </div>
-                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-4/5 h-1/2 grid grid-cols-4 gap-2 p-2 bg-white/20 rounded-2xl backdrop-blur-sm">
-                  {/* Fake puzzle grid */}
-                  {Array.from({ length: 16 }).map((_, i) => (
-                    <div key={i} className={`rounded-lg border-2 border-text-dark/20 ${
-                      i % 3 === 0 ? 'bg-primary' : i % 2 === 0 ? 'bg-accent' : 'bg-secondary'
-                    }`} />
-                  ))}
-                </div>
+            {/* Organic Blob Background */}
+            <div className="absolute inset-0 bg-secondary/20 blob-shape scale-110 -z-10" />
+            <div className="absolute inset-0 bg-primary/10 blob-shape-2 scale-105 -z-10" />
+            
+            <div className="relative rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl aspect-square">
+              <img 
+                src="https://picsum.photos/seed/robotics-kids/800/800" 
+                alt="Kids building robots" 
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+              {/* Floating Badges */}
+              <div className="absolute top-6 -left-4 bg-white px-4 py-2 rounded-2xl shadow-xl font-bold text-primary flex items-center gap-2 transform -rotate-6">
+                <Palette className="w-5 h-5" /> Creative
+              </div>
+              <div className="absolute bottom-10 -right-4 bg-white px-4 py-2 rounded-2xl shadow-xl font-bold text-secondary flex items-center gap-2 transform rotate-6">
+                <Cpu className="w-5 h-5" /> Technical
               </div>
             </div>
-            {/* Decorative elements behind phone */}
-            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] bg-accent rounded-full blur-[80px] opacity-40" />
           </motion.div>
 
         </div>
@@ -158,54 +156,138 @@ const Hero = () => {
   );
 };
 
-const Features = () => {
-  const features = [
+const Benefits = () => {
+  const benefits = [
     {
-      icon: <Brain className="w-10 h-10 text-white" />,
-      title: "Brain-Bending Levels",
-      description: "Over 500 handcrafted puzzles that will test your logic and spatial reasoning.",
-      color: "bg-primary"
+      icon: <Lightbulb className="w-8 h-8 text-primary" />,
+      title: "Creative Problem Solving",
+      description: "Kids learn to approach challenges from multiple angles, combining logic with artistic expression.",
+      color: "bg-indigo-50"
     },
     {
-      icon: <Zap className="w-10 h-10 text-white" />,
-      title: "Daily Challenges",
-      description: "New unique puzzles every day. Compete with friends for the fastest solve time.",
-      color: "bg-secondary"
+      icon: <Users className="w-8 h-8 text-secondary" />,
+      title: "Collaborative Teamwork",
+      description: "Group projects teach communication, sharing ideas, and working together to build amazing things.",
+      color: "bg-amber-50"
     },
     {
-      icon: <Trophy className="w-10 h-10 text-text-dark" />,
-      title: "Global Leaderboards",
-      description: "Climb the ranks and show the world who the true ChromaShift master is.",
-      color: "bg-accent"
+      icon: <Shield className="w-8 h-8 text-accent" />,
+      title: "Safe & Supportive",
+      description: "Our expert instructors provide a nurturing environment where it's safe to experiment and make mistakes.",
+      color: "bg-emerald-50"
     }
   ];
 
   return (
-    <section id="features" className="py-24 relative z-10 bg-white border-y-4 border-text-dark">
-      <div className="absolute inset-0 bg-dots pointer-events-none opacity-10" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section id="benefits" className="py-24 relative z-10 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">Why you'll love it</h2>
-          <p className="text-xl text-text-dark/70 max-w-2xl mx-auto font-medium">
-            Simple to learn, impossible to master. Discover the mechanics that make ChromaShift so addictive.
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Why TinkerBots?</h2>
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto font-medium">
+            We don't just build robots; we build confidence. Our unique curriculum blends STEM education with arts and crafts.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
+          {benefits.map((benefit, index) => (
             <motion.div 
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="fun-card group"
+              className="kid-card"
             >
-              <div className={`w-20 h-20 rounded-2xl ${feature.color} border-4 border-text-dark flex items-center justify-center mb-6 transform group-hover:rotate-12 transition-transform`}>
-                {feature.icon}
+              <div className={`w-16 h-16 rounded-2xl ${benefit.color} flex items-center justify-center mb-6`}>
+                {benefit.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
-              <p className="text-lg text-text-dark/80 font-medium leading-relaxed">{feature.description}</p>
+              <h3 className="text-2xl font-bold mb-4">{benefit.title}</h3>
+              <p className="text-slate-600 font-medium leading-relaxed">{benefit.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Programs = () => {
+  const programs = [
+    {
+      age: "Ages 4-6",
+      title: "Mini Makers",
+      icon: <Palette className="w-10 h-10 text-white" />,
+      color: "bg-secondary",
+      description: "Introduction to building and simple circuits using playdough, cardboard, and safe craft materials.",
+      features: ["Playdough Circuits", "Cardboard Bots", "Motorized Art"]
+    },
+    {
+      age: "Ages 7-9",
+      title: "Tech Tinkerers",
+      icon: <Wrench className="w-10 h-10 text-white" />,
+      color: "bg-primary",
+      description: "Diving into mechanics and basic coding. Kids build moving robots using Lego and craft supplies.",
+      features: ["Lego Robotics", "Block Coding", "Sensors & Motors"]
+    },
+    {
+      age: "Ages 10-12",
+      title: "Future Engineers",
+      icon: <Cpu className="w-10 h-10 text-white" />,
+      color: "bg-accent",
+      description: "Advanced projects combining 3D printing, Arduino microcontrollers, and custom chassis design.",
+      features: ["Arduino Basics", "3D Printing", "Python Intro"]
+    }
+  ];
+
+  return (
+    <section id="programs" className="py-24 relative bg-slate-50 overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Classes for Every Age</h2>
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto font-medium">
+            Curriculums designed specifically for developmental milestones, ensuring every child is challenged and engaged.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8">
+          {programs.map((program, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="kid-card flex flex-col"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className={`w-16 h-16 rounded-2xl ${program.color} flex items-center justify-center shadow-lg`}>
+                  {program.icon}
+                </div>
+                <div>
+                  <span className="text-sm font-bold text-slate-400 uppercase tracking-wider">{program.age}</span>
+                  <h3 className="text-2xl font-bold">{program.title}</h3>
+                </div>
+              </div>
+              
+              <p className="text-slate-600 font-medium mb-8 flex-grow">
+                {program.description}
+              </p>
+
+              <ul className="space-y-3 mb-8">
+                {program.features.map((feature, j) => (
+                  <li key={j} className="flex items-center gap-3 font-bold text-slate-700">
+                    <CheckCircle2 className={`w-5 h-5 ${program.color.replace('bg-', 'text-')}`} />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <button className={`w-full py-4 rounded-xl font-bold text-white transition-transform hover:scale-105 active:scale-95 ${program.color}`}>
+                View Details
+              </button>
             </motion.div>
           ))}
         </div>
@@ -216,40 +298,42 @@ const Features = () => {
 
 const Reviews = () => {
   return (
-    <section id="reviews" className="py-24 relative bg-secondary overflow-hidden border-b-4 border-text-dark">
-      {/* Decorative background shapes */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary rounded-full mix-blend-multiply opacity-50 blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent rounded-full mix-blend-multiply opacity-50 blur-3xl" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="reviews" className="py-24 relative bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6" style={{ textShadow: '4px 4px 0 #2D3047' }}>
-            Players are obsessed
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">Happy Parents, Happy Kids</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { name: "PuzzleMaster99", text: "I downloaded this to kill 5 minutes and ended up playing for 3 hours. Send help.", rating: 5 },
-            { name: "Sarah J.", text: "The color shifting mechanic is brilliant. Best puzzle game I've played since Tetris.", rating: 5 },
-            { name: "CasualGamer", text: "Level 42 is driving me crazy but I can't stop trying. The animations are so satisfying!", rating: 5 }
+            { name: "Sarah Jenkins", role: "Parent of Leo (7)", text: "Leo used to just play video games, now he's building his own motorized cars out of cardboard and motors. The instructors are amazing!" },
+            { name: "David Chen", role: "Parent of Mia (5)", text: "The Mini Makers class is perfect. Mia comes home covered in glitter and talking about circuits. It's the highlight of her week." },
+            { name: "Elena Rodriguez", role: "Parent of Sam (11)", text: "Sam learned more about coding and engineering here in one semester than he did all year in school. Highly recommend the Future Engineers program." }
           ].map((review, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="bg-white border-4 border-text-dark rounded-3xl p-8"
-              style={{ boxShadow: '6px 6px 0 0 #2D3047' }}
+              className="bg-slate-50 rounded-[2rem] p-8 border border-slate-100 relative"
             >
-              <div className="flex gap-1 mb-4">
-                {[...Array(review.rating)].map((_, j) => (
-                  <Star key={j} className="w-6 h-6 text-accent fill-accent" />
+              <div className="absolute -top-5 left-8 text-6xl text-primary/20 font-serif">"</div>
+              <div className="flex gap-1 mb-6 relative z-10">
+                {[...Array(5)].map((_, j) => (
+                  <Star key={j} className="w-5 h-5 text-secondary fill-secondary" />
                 ))}
               </div>
-              <p className="text-xl font-bold mb-6">"{review.text}"</p>
-              <p className="text-text-dark/60 font-bold uppercase tracking-wider">{review.name}</p>
+              <p className="text-lg font-medium text-slate-700 mb-6 relative z-10">"{review.text}"</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-500">
+                  {review.name.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-bold text-text-dark">{review.name}</p>
+                  <p className="text-sm text-slate-500 font-medium">{review.role}</p>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -260,28 +344,29 @@ const Reviews = () => {
 
 const CTA = () => {
   return (
-    <section className="py-32 relative bg-bg-main overflow-hidden">
-      <div className="absolute inset-0 bg-dots pointer-events-none" />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <section className="py-24 relative bg-bg-main overflow-hidden">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-accent border-4 border-text-dark rounded-[3rem] p-12 md:p-20"
-          style={{ boxShadow: '12px 12px 0 0 #2D3047' }}
+          className="bg-primary rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-primary/20"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">Ready to test your brain?</h2>
-          <p className="text-2xl font-medium mb-10 max-w-2xl mx-auto">
-            Join over 2 million players worldwide. Free to download, impossible to put down.
+          {/* Decorative background elements inside CTA */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" />
+          
+          <Rocket className="w-16 h-16 text-secondary mx-auto mb-6 transform -rotate-12" />
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to start building?</h2>
+          <p className="text-xl font-medium text-white/80 mb-10 max-w-2xl mx-auto">
+            Spots are filling up fast for our upcoming semester. Give your child the gift of creativity and technology.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <button className="btn-primary text-xl px-10 py-5">
-              <Smartphone className="w-8 h-8" />
-              App Store
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <button className="bg-secondary text-white rounded-full px-10 py-5 text-xl font-bold shadow-lg shadow-secondary/30 transition-all hover:scale-105 active:scale-95">
+              Enroll for Fall 2026
             </button>
-            <button className="btn-secondary text-xl px-10 py-5">
-              <Gamepad2 className="w-8 h-8" />
-              Google Play
+            <button className="bg-white/10 text-white border-2 border-white/20 rounded-full px-10 py-5 text-xl font-bold transition-all hover:bg-white/20 active:scale-95">
+              Contact Us
             </button>
           </div>
         </motion.div>
@@ -292,25 +377,48 @@ const CTA = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-text-dark text-white py-12 border-t-8 border-primary">
+    <footer className="bg-slate-900 text-slate-300 py-16 border-t-[12px] border-secondary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <Puzzle className="w-6 h-6 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+                <Bot className="w-6 h-6 text-white" />
+              </div>
+              <span className="font-display font-bold text-2xl tracking-tight text-white">TinkerBots</span>
             </div>
-            <span className="font-display font-bold text-2xl tracking-tight">ChromaShift</span>
+            <p className="font-medium max-w-sm leading-relaxed">
+              Empowering the next generation of innovators through hands-on robotics and creative crafts.
+            </p>
           </div>
           
-          <div className="flex gap-8 font-bold text-white/70">
-            <a href="#" className="hover:text-accent transition-colors">Support</a>
-            <a href="#" className="hover:text-accent transition-colors">Privacy</a>
-            <a href="#" className="hover:text-accent transition-colors">Terms</a>
-            <a href="#" className="hover:text-accent transition-colors">Press Kit</a>
+          <div>
+            <h4 className="font-bold text-white mb-6 text-lg">Quick Links</h4>
+            <ul className="space-y-3 font-medium">
+              <li><a href="#" className="hover:text-secondary transition-colors">Programs</a></li>
+              <li><a href="#" className="hover:text-secondary transition-colors">Schedule</a></li>
+              <li><a href="#" className="hover:text-secondary transition-colors">About Us</a></li>
+              <li><a href="#" className="hover:text-secondary transition-colors">FAQ</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-white mb-6 text-lg">Contact</h4>
+            <ul className="space-y-3 font-medium">
+              <li>123 Maker Street</li>
+              <li>Innovation City, IC 90210</li>
+              <li>hello@tinkerbots.edu</li>
+              <li>(555) 123-4567</li>
+            </ul>
           </div>
         </div>
-        <div className="mt-12 text-center text-white/40 font-medium">
-          <p>© 2026 ChromaShift Games. All rights reserved.</p>
+        
+        <div className="pt-8 border-t border-slate-800 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4 font-medium text-sm">
+          <p>© 2026 TinkerBots Academy. All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>
@@ -323,7 +431,8 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Features />
+        <Benefits />
+        <Programs />
         <Reviews />
         <CTA />
       </main>
