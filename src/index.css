@@ -1,25 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   
-  --color-base-bg: #050505;
-  --color-base-surface: #121212;
-  --color-base-border: #262626;
-  --color-accent-primary: #10B981; /* Emerald Green for Growth */
-  --color-accent-glow: rgba(16, 185, 129, 0.15);
-  --color-text-main: #FAFAFA;
-  --color-text-muted: #A3A3A3;
+  --color-base-bg: #030014;
+  --color-base-surface: rgba(255, 255, 255, 0.03);
+  --color-base-border: rgba(255, 255, 255, 0.08);
+  --color-accent-primary: #8B5CF6; /* Violet */
+  --color-accent-secondary: #EC4899; /* Pink */
+  --color-accent-tertiary: #06B6D4; /* Cyan */
+  --color-text-main: #FFFFFF;
+  --color-text-muted: #9CA3AF;
 }
 
 @layer base {
   body {
-    @apply font-sans bg-base-bg text-text-main antialiased selection:bg-accent-primary selection:text-base-bg;
+    @apply font-sans bg-base-bg text-text-main antialiased selection:bg-accent-primary selection:text-white;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tight;
+    @apply font-display tracking-tight;
   }
 }
 
@@ -31,17 +32,29 @@
   scrollbar-width: none;
 }
 
-/* Technical Grid Background */
+/* AI Grid Background */
 .bg-grid-pattern {
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
 }
 
 .mask-radial {
-  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-text-muted;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-primary via-accent-secondary to-accent-tertiary;
+}
+
+.text-gradient-subtle {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400;
+}
+
+.glass-panel {
+  @apply bg-base-surface backdrop-blur-xl border border-base-border rounded-2xl;
+}
+
+.glow-effect {
+  box-shadow: 0 0 40px -10px var(--color-accent-primary);
 }

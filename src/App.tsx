@@ -1,252 +1,183 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { 
-  Terminal, TrendingUp, Code2, Search, Zap, BarChart, 
-  ArrowUpRight, Github, Linkedin, Twitter, Mail, Menu, X,
-  CheckCircle2, Globe, Database, Cpu
+  Play, 
+  Wand2, 
+  Sparkles, 
+  Video, 
+  Zap, 
+  Layers, 
+  ArrowRight,
+  CheckCircle2,
+  Menu,
+  X
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-base-bg/80 backdrop-blur-md border-b border-base-border py-4' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Terminal size={24} className="text-accent-primary" />
-          <span className="text-xl font-bold tracking-tight">Alex<span className="text-accent-primary">.</span>SEO</span>
-        </div>
+    <nav className="fixed top-0 w-full z-50 glass-panel rounded-none border-x-0 border-t-0 border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
+              <Play className="w-4 h-4 text-white ml-0.5" fill="currentColor" />
+            </div>
+            <span className="font-display font-bold text-xl tracking-tight">Lumina</span>
+          </div>
+          
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#features" className="text-sm text-text-muted hover:text-white transition-colors">Features</a>
+            <a href="#showcase" className="text-sm text-text-muted hover:text-white transition-colors">Showcase</a>
+            <a href="#pricing" className="text-sm text-text-muted hover:text-white transition-colors">Pricing</a>
+          </div>
 
-        <div className="hidden md:flex items-center gap-8">
-          {['Expertise', 'Case Studies', 'Experience', 'Contact'].map((item) => (
-            <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-sm font-medium text-text-muted hover:text-white transition-colors">
-              {item}
-            </a>
-          ))}
-        </div>
+          <div className="hidden md:flex items-center gap-4">
+            <button className="text-sm font-medium text-text-muted hover:text-white transition-colors">
+              Log in
+            </button>
+            <button className="px-4 py-2 text-sm font-medium bg-white text-black rounded-full hover:bg-gray-200 transition-colors">
+              Get Started
+            </button>
+          </div>
 
-        <div className="hidden md:flex items-center gap-4">
-          <a href="#contact" className="bg-white text-black px-5 py-2.5 rounded-sm text-sm font-semibold hover:bg-gray-200 transition-colors flex items-center gap-2">
-            Available for Hire <div className="w-2 h-2 rounded-full bg-accent-primary animate-pulse" />
-          </a>
+          <div className="md:hidden flex items-center">
+            <button onClick={() => setIsOpen(!isOpen)} className="text-text-muted hover:text-white">
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
-
-        <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-base-surface border-b border-base-border p-6 md:hidden flex flex-col gap-4"
-          >
-            {['Expertise', 'Case Studies', 'Experience', 'Contact'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-lg font-medium text-text-muted hover:text-white transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                {item}
-              </a>
-            ))}
-            <div className="h-px bg-base-border my-2" />
-            <a href="#contact" className="bg-white text-black px-5 py-3 rounded-sm text-sm font-semibold flex items-center justify-center gap-2 w-full">
-              Available for Hire <div className="w-2 h-2 rounded-full bg-accent-primary animate-pulse" />
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile menu */}
+      {isOpen && (
+        <div className="md:hidden glass-panel border-x-0 border-b-0">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#features" className="block px-3 py-2 text-base font-medium text-text-muted hover:text-white">Features</a>
+            <a href="#showcase" className="block px-3 py-2 text-base font-medium text-text-muted hover:text-white">Showcase</a>
+            <a href="#pricing" className="block px-3 py-2 text-base font-medium text-text-muted hover:text-white">Pricing</a>
+            <div className="mt-4 flex flex-col gap-2 px-3">
+              <button className="w-full px-4 py-2 text-sm font-medium border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                Log in
+              </button>
+              <button className="w-full px-4 py-2 text-sm font-medium bg-white text-black rounded-lg hover:bg-gray-200 transition-colors">
+                Get Started
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
 
 const Hero = () => {
   return (
-    <section className="relative pt-40 pb-20 px-6 min-h-screen flex items-center overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-50 mask-radial pointer-events-none" />
+    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-primary/20 rounded-full blur-[120px] opacity-50 pointer-events-none" />
       
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative z-10 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel mb-8 border-accent-primary/30"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-glow border border-accent-primary/20 text-xs font-mono text-accent-primary mb-8">
-            <Code2 size={14} /> Senior Technical SEO Developer
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold leading-[1.1] mb-6">
-            I engineer <br />
-            <span className="text-accent-primary">organic growth.</span>
-          </h1>
-          <p className="text-lg text-text-muted mb-10 max-w-lg leading-relaxed">
-            Bridging the gap between code and search engines. I build high-performance web architectures that rank #1 and convert traffic into revenue.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a href="#work" className="bg-white text-black px-8 py-4 rounded-sm text-sm font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-              View Case Studies <ArrowUpRight size={16} />
-            </a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="bg-base-surface border border-base-border text-white px-8 py-4 rounded-sm text-sm font-semibold hover:bg-base-border transition-colors flex items-center justify-center gap-2">
-              <Github size={18} /> GitHub
-            </a>
-          </div>
+          <Sparkles className="w-4 h-4 text-accent-primary" />
+          <span className="text-sm font-medium text-accent-primary">Lumina AI 2.0 is now live</span>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative hidden lg:block"
+        <motion.h1 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-6"
         >
-          {/* Code/Terminal Window Graphic */}
-          <div className="w-full max-w-lg mx-auto bg-[#0D0D0D] rounded-xl border border-base-border shadow-2xl overflow-hidden font-mono text-sm">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-base-border bg-[#111]">
-              <div className="flex gap-2">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-green-500/80" />
-              </div>
-              <div className="text-text-muted text-xs">audit.js</div>
-            </div>
-            <div className="p-6 text-gray-300 leading-relaxed">
-              <p><span className="text-accent-primary">~</span> npm run analyze --url=client-site.com</p>
-              <p className="text-text-muted mt-2">Running Lighthouse & Technical Audit...</p>
-              <div className="mt-4 space-y-2">
-                <div className="flex justify-between">
-                  <span>Performance</span>
-                  <span className="text-accent-primary">100</span>
-                </div>
-                <div className="w-full bg-base-border h-1.5 rounded-full overflow-hidden">
-                  <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1, delay: 1 }} className="h-full bg-accent-primary" />
-                </div>
-                
-                <div className="flex justify-between mt-4">
-                  <span>Accessibility</span>
-                  <span className="text-accent-primary">100</span>
-                </div>
-                <div className="w-full bg-base-border h-1.5 rounded-full overflow-hidden">
-                  <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1, delay: 1.2 }} className="h-full bg-accent-primary" />
-                </div>
+          Turn text into <br className="hidden md:block" />
+          <span className="text-gradient">stunning videos</span>
+        </motion.h1>
 
-                <div className="flex justify-between mt-4">
-                  <span>Best Practices</span>
-                  <span className="text-accent-primary">100</span>
-                </div>
-                <div className="w-full bg-base-border h-1.5 rounded-full overflow-hidden">
-                  <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1, delay: 1.4 }} className="h-full bg-accent-primary" />
-                </div>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-10"
+        >
+          The most advanced AI video generator for creators and marketing teams. 
+          Type your prompt and watch cinematic visuals come to life in seconds.
+        </motion.p>
 
-                <div className="flex justify-between mt-4">
-                  <span>SEO</span>
-                  <span className="text-accent-primary">100</span>
-                </div>
-                <div className="w-full bg-base-border h-1.5 rounded-full overflow-hidden">
-                  <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1, delay: 1.6 }} className="h-full bg-accent-primary" />
-                </div>
-              </div>
-              <p className="text-accent-primary mt-6">✓ Audit passed. Core Web Vitals optimized.</p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="max-w-3xl mx-auto"
+        >
+          <div className="glass-panel p-2 flex flex-col sm:flex-row gap-2 glow-effect">
+            <div className="relative flex-grow">
+              <Wand2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <input 
+                type="text" 
+                placeholder="A cinematic shot of a neon city in the rain, 4k resolution..." 
+                className="w-full bg-transparent border-none text-white placeholder-text-muted focus:ring-0 py-4 pl-12 pr-4 outline-none"
+              />
             </div>
+            <button className="px-8 py-4 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+              Generate Video
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
-          
-          {/* Floating Stat */}
-          <motion.div 
-            animate={{ y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute -right-10 top-1/3 bg-base-surface border border-base-border p-4 rounded-lg shadow-xl flex items-center gap-4"
-          >
-            <div className="w-12 h-12 rounded-full bg-accent-glow flex items-center justify-center">
-              <TrendingUp size={24} className="text-accent-primary" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">+340%</p>
-              <p className="text-xs text-text-muted font-mono">Organic Traffic YoY</p>
-            </div>
-          </motion.div>
+          <p className="text-sm text-text-muted mt-4">No credit card required. Free 14-day trial.</p>
         </motion.div>
       </div>
     </section>
   );
 };
 
-const StatsBar = () => {
-  const stats = [
-    { label: "Years Experience", value: "8+" },
-    { label: "Page 1 Rankings", value: "10k+" },
-    { label: "Revenue Generated", value: "$50M+" },
-    { label: "Lighthouse Scores", value: "100/100" }
-  ];
-
-  return (
-    <section className="border-y border-base-border bg-base-surface/30">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-base-border/50">
-          {stats.map((stat, i) => (
-            <div key={i} className={`flex flex-col items-center text-center ${i !== 0 ? 'pl-8' : ''}`}>
-              <p className="text-4xl md:text-5xl font-bold text-white mb-2">{stat.value}</p>
-              <p className="text-sm font-mono text-text-muted uppercase tracking-wider">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Expertise = () => {
-  const skills = [
+const Features = () => {
+  const features = [
     {
-      icon: <Code2 size={24} />,
-      title: "Technical SEO Architecture",
-      desc: "Server-side rendering (SSR), static site generation (SSG) with Next.js/Nuxt, dynamic rendering, and crawl budget optimization."
+      icon: <Video className="w-6 h-6 text-accent-primary" />,
+      title: "Text to Cinematic Video",
+      description: "Our proprietary diffusion model understands complex prompts to generate photorealistic, 4K video clips."
     },
     {
-      icon: <Zap size={24} />,
-      title: "Core Web Vitals",
-      desc: "Deep performance profiling. Optimizing LCP, INP, and CLS through code splitting, edge caching, and asset optimization."
+      icon: <Zap className="w-6 h-6 text-accent-secondary" />,
+      title: "Real-time Rendering",
+      description: "Stop waiting hours for renders. Lumina generates 10-second clips in under 30 seconds."
     },
     {
-      icon: <Database size={24} />,
-      title: "Structured Data & Schema",
-      desc: "Advanced JSON-LD implementation for rich snippets, knowledge graphs, and semantic entity relationships."
-    },
-    {
-      icon: <BarChart size={24} />,
-      title: "Data Analytics & Tracking",
-      desc: "Custom GTM server-side tagging, GA4 configuration, log file analysis, and custom Looker Studio dashboards."
+      icon: <Layers className="w-6 h-6 text-accent-tertiary" />,
+      title: "Multi-style Control",
+      description: "Switch between cinematic, anime, 3D render, and illustrative styles with a single click."
     }
   ];
 
   return (
-    <section id="expertise" className="py-32 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-16 max-w-2xl">
-          <h2 className="text-sm font-mono text-accent-primary mb-4 uppercase tracking-widest">Core Competencies</h2>
-          <h3 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">Where Marketing Meets Engineering.</h3>
-          <p className="text-lg text-text-muted">I don't just recommend SEO fixes; I write the code to implement them. Bridging the gap between marketing goals and technical execution.</p>
+    <section id="features" className="py-24 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">Limitless creativity, <br />zero technical skills.</h2>
+          <p className="text-text-muted text-lg max-w-2xl mx-auto">Everything you need to scale your video production without scaling your budget.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {skills.map((skill, i) => (
+        <div className="grid md:grid-cols-3 gap-6">
+          {features.map((feature, index) => (
             <motion.div 
-              key={i}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-base-surface border border-base-border p-8 rounded-xl hover:border-accent-primary/30 transition-colors group"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="glass-panel p-8 hover:bg-white/[0.05] transition-colors"
             >
-              <div className="w-12 h-12 rounded-lg bg-base-bg border border-base-border flex items-center justify-center mb-6 text-white group-hover:text-accent-primary transition-colors">
-                {skill.icon}
+              <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6">
+                {feature.icon}
               </div>
-              <h4 className="text-xl font-bold mb-3">{skill.title}</h4>
-              <p className="text-text-muted leading-relaxed">{skill.desc}</p>
+              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+              <p className="text-text-muted leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
@@ -255,64 +186,49 @@ const Expertise = () => {
   );
 };
 
-const CaseStudies = () => {
-  const cases = [
-    {
-      client: "FinTech Startup",
-      metric: "+450%",
-      metricLabel: "Non-Branded Organic Traffic",
-      title: "Next.js Migration & Programmatic SEO",
-      desc: "Migrated a legacy SPA to Next.js, implementing a programmatic SEO strategy that generated 10,000+ localized landing pages with dynamic structured data.",
-      tags: ["Next.js", "Programmatic SEO", "JSON-LD"]
-    },
-    {
-      client: "Global E-Commerce",
-      metric: "-2.4s",
-      metricLabel: "Largest Contentful Paint (LCP)",
-      title: "Core Web Vitals Overhaul",
-      desc: "Refactored the critical rendering path, implemented edge caching via Cloudflare Workers, and optimized image delivery, resulting in a 40% increase in conversion rate.",
-      tags: ["Performance", "Cloudflare", "React"]
-    }
+const Showcase = () => {
+  const videos = [
+    { url: "https://picsum.photos/seed/cyberpunk/800/600", title: "Cyberpunk Cityscape" },
+    { url: "https://picsum.photos/seed/nature/800/600", title: "Macro Nature" },
+    { url: "https://picsum.photos/seed/space/800/600", title: "Deep Space Nebula" },
+    { url: "https://picsum.photos/seed/abstract/800/600", title: "Abstract Fluid Dynamics" }
   ];
 
   return (
-    <section id="case-studies" className="py-32 px-6 bg-base-surface/30 border-y border-base-border">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-16">
-          <h2 className="text-sm font-mono text-accent-primary mb-4 uppercase tracking-widest">Featured Work</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-gradient">Proof is in the data.</h3>
+    <section id="showcase" className="py-24 relative z-10 bg-black/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">Made with Lumina</h2>
+            <p className="text-text-muted text-lg max-w-xl">Explore what our community is creating. All videos generated entirely from text prompts.</p>
+          </div>
+          <button className="px-6 py-3 glass-panel hover:bg-white/10 transition-colors flex items-center gap-2">
+            View Gallery <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {cases.map((study, i) => (
+        <div className="grid sm:grid-cols-2 gap-6">
+          {videos.map((video, index) => (
             <motion.div 
-              key={i}
+              key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-base-bg border border-base-border rounded-xl overflow-hidden group"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group relative aspect-video rounded-2xl overflow-hidden bg-base-surface cursor-pointer"
             >
-              {/* Metric Header */}
-              <div className="p-8 border-b border-base-border bg-gradient-to-br from-accent-glow to-transparent">
-                <p className="text-sm font-mono text-text-muted mb-2">{study.client}</p>
-                <div className="flex items-baseline gap-3">
-                  <h4 className="text-6xl font-bold text-accent-primary">{study.metric}</h4>
-                  <span className="text-sm font-bold uppercase tracking-wider text-white">{study.metricLabel}</span>
+              <img 
+                src={video.url} 
+                alt={video.title} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center mb-4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <Play className="w-5 h-5 text-white ml-1" fill="currentColor" />
                 </div>
-              </div>
-              
-              {/* Details */}
-              <div className="p-8">
-                <h5 className="text-2xl font-bold mb-4">{study.title}</h5>
-                <p className="text-text-muted mb-8 leading-relaxed">{study.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {study.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 rounded-full bg-base-surface border border-base-border text-xs font-mono text-text-muted">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                <p className="text-sm font-medium text-accent-tertiary mb-1">Prompt</p>
+                <p className="text-white font-medium">"{video.title}"</p>
               </div>
             </motion.div>
           ))}
@@ -322,74 +238,60 @@ const CaseStudies = () => {
   );
 };
 
-const Experience = () => {
-  const jobs = [
-    {
-      role: "Lead SEO Engineer",
-      company: "TechGrowth Agency",
-      period: "2023 - Present",
-      desc: "Leading a team of 4 developers to implement technical SEO architectures for Fortune 500 clients. Built internal tools for log file analysis."
-    },
-    {
-      role: "Senior Frontend Developer (SEO Focus)",
-      company: "E-Commerce Giant",
-      period: "2020 - 2023",
-      desc: "Spearheaded the migration to a headless commerce architecture. Improved Core Web Vitals across 2M+ URLs, directly impacting organic revenue."
-    },
-    {
-      role: "Technical SEO Specialist",
-      company: "Digital Marketing Co.",
-      period: "2017 - 2020",
-      desc: "Conducted deep technical audits, managed crawl budgets, and implemented complex schema markups for enterprise clients."
-    }
-  ];
-
+const Pricing = () => {
   return (
-    <section id="experience" className="py-32 px-6">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-sm font-mono text-accent-primary mb-4 uppercase tracking-widest text-center">Timeline</h2>
-        <h3 className="text-4xl md:text-5xl font-bold mb-16 text-center text-gradient">Career Experience</h3>
-
-        <div className="space-y-12 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-base-border before:to-transparent">
-          {jobs.map((job, i) => (
-            <div key={i} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-4 border-base-bg bg-base-surface text-accent-primary shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <CheckCircle2 size={16} />
-              </div>
-              
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-base-surface border border-base-border p-6 rounded-xl shadow-xl">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
-                  <h4 className="font-bold text-lg text-white">{job.role}</h4>
-                  <span className="text-xs font-mono text-accent-primary">{job.period}</span>
-                </div>
-                <p className="text-sm font-medium text-text-muted mb-4">{job.company}</p>
-                <p className="text-sm text-text-muted leading-relaxed">{job.desc}</p>
-              </div>
-            </div>
-          ))}
+    <section id="pricing" className="py-24 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4">Simple, transparent pricing</h2>
+          <p className="text-text-muted text-lg max-w-2xl mx-auto">Start for free, upgrade when you need more power.</p>
         </div>
-      </div>
-    </section>
-  );
-};
 
-const CTA = () => {
-  return (
-    <section id="contact" className="py-32 px-6 relative overflow-hidden bg-base-surface/50 border-t border-base-border">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-primary/10 rounded-full blur-[120px] pointer-events-none" />
-      
-      <div className="max-w-4xl mx-auto relative z-10 text-center">
-        <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-gradient">Let's build something <br /> that ranks.</h2>
-        <p className="text-xl text-text-muted mb-10 max-w-2xl mx-auto">
-          Currently accepting freelance projects and consulting roles for Q3. Let's discuss your technical SEO challenges.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="mailto:hello@example.com" className="bg-white text-black px-8 py-4 rounded-sm text-base font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-            <Mail size={18} /> Email Me
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="bg-base-surface border border-base-border text-white px-8 py-4 rounded-sm text-base font-semibold hover:bg-base-border transition-colors flex items-center justify-center gap-2">
-            <Linkedin size={18} /> Connect on LinkedIn
-          </a>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Starter Plan */}
+          <div className="glass-panel p-8 flex flex-col">
+            <h3 className="text-2xl font-bold mb-2">Creator</h3>
+            <p className="text-text-muted mb-6">Perfect for individuals and hobbyists.</p>
+            <div className="mb-8">
+              <span className="text-5xl font-bold">$19</span>
+              <span className="text-text-muted">/month</span>
+            </div>
+            <ul className="space-y-4 mb-8 flex-grow">
+              {['100 video generations/mo', '720p resolution', 'Standard rendering speed', 'Community support'].map((feature, i) => (
+                <li key={i} className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-accent-primary" />
+                  <span className="text-gray-300">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <button className="w-full py-4 glass-panel hover:bg-white/10 transition-colors font-medium">
+              Start Free Trial
+            </button>
+          </div>
+
+          {/* Pro Plan */}
+          <div className="glass-panel p-8 flex flex-col relative overflow-hidden border-accent-primary/50 glow-effect">
+            <div className="absolute top-0 right-0 bg-accent-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+              MOST POPULAR
+            </div>
+            <h3 className="text-2xl font-bold mb-2">Pro</h3>
+            <p className="text-text-muted mb-6">For professionals and marketing teams.</p>
+            <div className="mb-8">
+              <span className="text-5xl font-bold">$49</span>
+              <span className="text-text-muted">/month</span>
+            </div>
+            <ul className="space-y-4 mb-8 flex-grow">
+              {['Unlimited video generations', '4K resolution', 'Priority rendering speed', 'Commercial rights', 'API access'].map((feature, i) => (
+                <li key={i} className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-accent-secondary" />
+                  <span className="text-gray-300">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <button className="w-full py-4 bg-white text-black hover:bg-gray-200 transition-colors font-medium rounded-xl">
+              Get Pro
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -398,40 +300,69 @@ const CTA = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-base-bg border-t border-base-border py-12 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex items-center gap-2">
-          <Terminal size={20} className="text-accent-primary" />
-          <span className="text-lg font-bold tracking-tight">Alex<span className="text-accent-primary">.</span>SEO</span>
+    <footer className="border-t border-white/10 bg-black/50 pt-16 pb-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          <div className="col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-6 h-6 rounded bg-gradient-to-br from-accent-primary to-accent-secondary flex items-center justify-center">
+                <Play className="w-3 h-3 text-white ml-0.5" fill="currentColor" />
+              </div>
+              <span className="font-display font-bold text-lg tracking-tight">Lumina</span>
+            </div>
+            <p className="text-text-muted max-w-sm">
+              Empowering creators to tell their stories through the magic of AI video generation.
+            </p>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Product</h4>
+            <ul className="space-y-2 text-text-muted text-sm">
+              <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Showcase</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">API</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold mb-4">Company</h4>
+            <ul className="space-y-2 text-text-muted text-sm">
+              <li><a href="#" className="hover:text-white transition-colors">About</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+            </ul>
+          </div>
         </div>
-        
-        <p className="text-sm text-text-muted font-mono">
-          © {new Date().getFullYear()} Alex Dev. Built with React & Tailwind.
-        </p>
-
-        <div className="flex gap-4">
-          <a href="#" className="text-text-muted hover:text-white transition-colors"><Github size={20} /></a>
-          <a href="#" className="text-text-muted hover:text-white transition-colors"><Twitter size={20} /></a>
-          <a href="#" className="text-text-muted hover:text-white transition-colors"><Linkedin size={20} /></a>
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text-muted">
+          <p>© 2026 Lumina AI. All rights reserved.</p>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>
   );
 };
 
-export default function App() {
+function App() {
   return (
-    <div className="min-h-screen bg-base-bg text-text-main font-sans selection:bg-accent-primary selection:text-base-bg">
+    <div className="min-h-screen bg-base-bg text-text-main font-sans selection:bg-accent-primary selection:text-white relative">
+      {/* Global Background Grid */}
+      <div className="fixed inset-0 bg-grid-pattern mask-radial pointer-events-none opacity-40" />
+      
       <Navbar />
+      
       <main>
         <Hero />
-        <StatsBar />
-        <Expertise />
-        <CaseStudies />
-        <Experience />
-        <CTA />
+        <Features />
+        <Showcase />
+        <Pricing />
       </main>
+
       <Footer />
     </div>
   );
 }
+
+export default App;
